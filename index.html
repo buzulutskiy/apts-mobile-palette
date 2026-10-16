@@ -1,0 +1,424 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Мобильная палитра — спецификация</title><style>
+*{box-sizing:border-box}body{margin:0;background:#fafafa;color:#24242a;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1400px;margin:auto;padding:25px 28px 55px}header{display:flex;justify-content:space-between;align-items:center;gap:18px}h1{font-size:24px;letter-spacing:-.5px;margin:0}h2{font-size:19px;margin:28px 0 6px}h3{font-size:14px;margin:0 0 12px;font-weight:600}p{margin:7px 0 18px;color:#777780;font-size:13px}button{font:inherit;cursor:pointer;border:1px solid #dddde5;background:white;color:#34323b;border-radius:7px;padding:9px 13px}button:hover{border-color:#965df5}button:focus-visible{outline:3px solid #b68ef8;outline-offset:3px}.download{background:#7146b8;color:white;border-color:#7146b8;white-space:nowrap}.tabs{display:flex;gap:24px;border-bottom:1px solid #dddde5;margin:20px 0}.tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;padding:10px 0;color:#777780}.tabs button[aria-selected=true]{color:#7146b8;border-bottom-color:#7146b8}.row{padding:17px 18px;border:1px solid #e7e7eb;border-radius:9px;background:white;margin:16px 0}.ramp{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}.cell{min-width:0}.chip{height:82px;border-radius:5px;border:1px solid #00000009;display:flex;flex-direction:column;justify-content:space-between;padding:9px;font-size:11px}.hex{font:10px ui-monospace,SFMono-Regular,monospace}.name{font:10px/1.4 ui-monospace,SFMono-Regular,monospace;color:#777780;overflow-wrap:anywhere;margin-top:6px}.single-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.single{padding:12px;border:1px solid #e7e7eb;border-radius:8px;background:white;min-width:0}.single .chip{height:55px}.single .name{font-size:11px;color:#34323b}.checkers{border-radius:5px;background:repeating-conic-gradient(#eeeef2 0% 25%,#fff 0% 50%) 50%/12px 12px}.note{font-size:12px;color:#777780;border-left:3px solid #d5befb;padding-left:12px;max-width:900px}.code-tabs{display:flex;gap:7px;margin:18px 0 12px}.code-tabs button[aria-selected=true]{background:#f1eafa;border-color:#b68ef8;color:#7146b8}.code-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.code-head span{font:12px ui-monospace,monospace;color:#777780}.source{background:#191b24;color:#e5dfef;border-radius:9px;padding:20px;font:12px/1.7 ui-monospace,SFMono-Regular,monospace;white-space:pre;overflow:auto;margin:12px 0}.formula{font:12px/1.8 ui-monospace,monospace;background:#f1f0f5;padding:15px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}details{margin-top:26px}summary{cursor:pointer;font-weight:500;font-size:13px}[hidden]{display:none!important}.fixed-note{font-size:11px;color:#777780;margin-top:5px}.footer{margin-top:30px;font-size:11px;color:#9999a0}@media(max-width:1000px){.single-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.chip{padding:7px}.hex{font-size:9px}}@media(max-width:700px){main{padding:20px 16px}header{align-items:flex-start}h1{font-size:21px}.download{font-size:12px;padding:9px}.ramp{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 6px}.row{padding:14px 12px}.single-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.source{font-size:11px;padding:15px}.chip{height:78px}.name{font-size:9px}}
+.comparison-chip .chip{height:65px}.comparison-chip{margin-bottom:5px}.compare-step{font-size:11px;font-weight:600;margin-bottom:7px}.difference{font-size:10px;color:#777780;margin-top:7px}.difference.match{color:#45845b}.row-title{display:flex;justify-content:space-between;gap:12px}.row-title small{font-size:11px;color:#777780}.tabs{flex-wrap:wrap;gap:20px}@media(max-width:700px){.tabs{gap:16px}.tabs button{font-size:12px}}.spec{background:white;border:1px solid #e7e7eb;border-radius:9px;padding:16px 20px;margin:13px 0 20px}.spec ol{margin:0;padding-left:19px}.spec li{margin:0 0 10px;font-size:13px;line-height:1.6}.spec p{margin:12px 0 0;font-size:12px}.spec-formula{font:12px/1.7 ui-monospace,monospace;background:#f4f2f8;padding:10px 12px;border-radius:6px;overflow-wrap:anywhere}.example-title{margin:18px 0 10px}.example-code{background:#191b24;color:#e5dfef;padding:14px 18px;border-radius:8px;overflow:auto;font:12px/1.7 ui-monospace,monospace;margin:0 0 8px}.example-result{font-size:12px}.syntax-keyword{color:#c792ea}.syntax-string{color:#c3e88d}.syntax-number{color:#f7ae71}.syntax-type{color:#ffcb6b}.syntax-call{color:#82aaff}.syntax-comment{color:#8f99ad}.source{tab-size:4}</style></head><body><main><header><h1>Мобильная палитра</h1><button id="downloadJsonc" class="download">Скачать JSONC ↓</button></header><nav class="tabs" role="tablist" aria-label="Спецификация"><button id="paletteTab" role="tab" aria-selected="true" aria-controls="palette">Палитра</button><button id="comparisonTab" role="tab" aria-selected="false" aria-controls="comparison">Сравнение с Figma</button><button id="sourceTab" role="tab" aria-selected="false" aria-controls="sources">Исходный код</button></nav>
+<section id="palette" role="tabpanel" aria-labelledby="paletteTab"><h2>Цвета с растяжками</h2><p>6 цветных растяжек по двум профилям и готовая нейтральная шкала. Исходный цвет — на 500.</p><div id="ramps"></div><h2>Оставляем как есть</h2><p>13 переменных без растяжек, включая mb-background. Сохраняются имя, цвет и прозрачность.</p><div id="fixed" class="single-grid"></div><details><summary>Базовые цвета и наложения</summary><div id="base" class="single-grid" style="margin-top:15px"></div><div id="overlays"></div></details></section>
+<section id="comparison" role="tabpanel" aria-labelledby="comparisonTab" hidden><h2>Figma и упрощённый алгоритм</h2><p>В каждой паре сверху исходная заливка Figma, снизу — новый результат. Здесь показаны те же цвета, которые выгружаются в JSONC.</p><div class="note">Брендовый профиль на исходной базе: 10 из 10 совпадают точно. Голубой, жёлтый, красный и зелёный используют профиль «Стандартный»: на исходных 40 оттенках разница не превышает 3 единицы RGB из 255. Нейтральная шкала сохранена готовым набором.</div><div id="comparisonRows"></div></section><section id="sources" role="tabpanel" aria-labelledby="sourceTab" hidden>
+<h2>Как получить палитру</h2>
+<div class="spec">
+<ol>
+<li><strong>Задайте базовый цвет</strong> в формате <code>#RRGGBB</code>. Это будущая ступень <strong>500</strong>.</li>
+<li><strong>Выберите профиль.</strong> <code>brand</code> — для настраиваемого <code>mb-secondary</code>, независимо от его цвета. <code>standard</code> — для ссылок и индикаторов.</li>
+<li><strong>Функция вернёт 10 оттенков.</strong> Для 50–400 к базе добавляется белый, для 600–900 — чёрный. Сколько добавить на каждой ступени, определяют 10 коэффициентов выбранного профиля.</li>
+</ol>
+<div class="spec-formula">Канал оттенка = round(канал базы × доля базы + белый/чёрный × оставшаяся доля)</div>
+<p>Например, <code>brand / 400</code> — это <strong>69,6861% базы + 30,3139% белого</strong>. Все три канала RGB считаются отдельно и округляются до целых.</p>
+<p><code>mb-neutral</code> берётся из готовой шкалы. 13 одиночных цветов, включая <code>mb-background</code>, берутся из <code>fixed</code> в JSONC.</p>
+</div>
+<h3 class="example-title">Пример: построить палитру бренда</h3>
+<pre class="example-code"><code id="exampleCode"></code></pre>
+<p class="example-result">В примере: <code>shades[500] → #965DF5</code>, <code>shades[400] → #B68EF8</code>. Замените <code>brandHex</code> на любой другой цвет — профиль останется <code>brand</code>.</p>
+<p class="example-result">Получить уже заданную шкалу по имени: <code id="namedExample"></code>.</p>
+<h2>Полный исходный код</h2>
+<div class="code-tabs" role="tablist" aria-label="Платформа"><button id="iosTab" role="tab" aria-selected="true">iOS · Swift</button><button id="androidTab" role="tab" aria-selected="false">Android · Kotlin</button></div><div class="code-head"><span id="fileName"></span><button id="downloadSource">Скачать исходник ↓</button></div><pre class="source"><code id="sourceCode"></code></pre></section><div class="footer">APTS-MB-4 · данные и исходный код находятся внутри этой страницы · 16.10.2026</div></main><script>/* APTS-MB-4: one mixing function with two shared profiles and a fixed neutral scale.
+   Encoded sRGB channels 0–255, integer rational coefficients, half-up rounding.
+   Current source colors stay on 500. Thirteen utility colors remain fixed tokens.
+   The existing Figma scales are references, not outputs of a proven authoring algorithm. */
+(function(root){
+'use strict';
+const STEPS=[50,100,200,300,400,500,600,700,800,900];
+const DENOMINATOR=1000000;
+const ALPHAS=[.05,.1,.2,.3,.4,.5,.6,.7,.8,.9];
+function rgb(value){if(typeof value!=='string'||value.length!==7||!/^#[0-9a-f]{6}$/i.test(value))throw new Error('Ожидается HEX в формате #RRGGBB');return [1,3,5].map(i=>parseInt(value.slice(i,i+2),16));}
+function hex(channels){return '#'+channels.map(v=>Math.max(0,Math.min(255,Math.floor(v+.5))).toString(16).padStart(2,'0')).join('').toUpperCase();}
+const PROFILES={"brand":{"name":"\u0424\u0438\u043e\u043b\u0435\u0442\u043e\u0432\u044b\u0439","weights":[48730,97728,246996,400867,696861,1000000,901650,751749,600204,491127]},"standard":{"name":"\u0426\u0432\u0435\u0442\u043d\u043e\u0439","weights":[48698,77660,156851,277217,617325,1000000,815154,675198,498326,319742]}};
+function generateScale(base, profileId) {
+ const p=PROFILES[profileId];if(!p)throw Error('Unknown color profile: '+profileId);
+ const channels=rgb(base);
+ return Object.fromEntries(STEPS.map((step,i)=>{const k=p.weights[i],t=step<500?255:0;return [step,hex(channels.map(c=>Math.floor((t*(DENOMINATOR-k)+c*k+DENOMINATOR/2)/DENOMINATOR)))];}));
+}
+function mobileTokens(data){
+ const scales={},originals={},aliases={};
+ for(const m of data.mobile){originals[m.name]={hex:m.hex,alpha:m.alpha};if(m.generateRamp!==false){scales[m.name]=Object.fromEntries(Object.entries(generateScale(m.hex,m.profile)).map(([s,hex])=>[s,{hex,alpha:1}]));aliases[m.name]=m.name+'-500';}}
+ scales['mb-neutral']=Object.fromEntries(Object.entries(data.sourceMobileNeutral).map(([s,hex])=>[s,{hex,alpha:1}]));
+ const base={white:{hex:'#FFFFFF',alpha:1},black:{hex:'#000000',alpha:1}};
+ const overlays=Object.fromEntries(['black','white'].map(kind=>['mb-overlay-'+kind,Object.fromEntries(STEPS.map((s,i)=>[s,{hex:base[kind].hex,alpha:ALPHAS[i]}]))]));
+ return {scales,originals,aliases,base,overlays};
+}
+function cssColor(c){return c.alpha===1?c.hex:`rgb(${rgb(c.hex).join(' ')} / ${c.alpha})`;}
+function cssTokens(data){const t=mobileTokens(data),lines=['/* APTS unified mobile palette. Source colors on 500; fixed utility tokens retain values. */',':root {'];for(const [name,scale]of Object.entries({...t.scales,...t.overlays}))for(const [s,c]of Object.entries(scale))lines.push(`  --${name}-${s}: ${cssColor(c)};`);for(const [name,c]of Object.entries(t.base))lines.push(`  --${name}: ${cssColor(c)};`);for(const [name,c]of Object.entries(t.originals))lines.push(`  --${name}: ${t.aliases[name]?`var(--${t.aliases[name]})`:cssColor(c)};`);lines.push('}');return lines.join('\n');}
+function luminance(c){return rgb(c).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);}
+function foreground(c){const l=luminance(c);return (l+.05)/.05>=1.05/(l+.05)?'#000000':'#FFFFFF';}
+const api={PROFILES,generateScale,STEPS,DENOMINATOR,ALPHAS,rgb,hex,mobileTokens,cssColor,cssTokens,luminance,foreground};
+if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEngine=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script>const DATA={
+  "algorithm": {
+    "version": "APTS-MB-4",
+    "space": "encoded-sRGB",
+    "steps": [
+      50,
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+    ],
+    "denominator": 1000000,
+    "formula": "floor((T*(1000000-k)+B*k+500000)/1000000)",
+    "profiles": "brand and standard; no per-color corrections",
+    "neutral": "fixed source scale; no generation",
+    "sourceAccuracy": "brand: exact for the reference base; standard: max RGB delta 3 on the approved source shades"
+  },
+  "profiles": {
+    "brand": {
+      "name": "Брендовый",
+      "weights": [
+        48730,
+        97728,
+        246996,
+        400867,
+        696861,
+        1000000,
+        901650,
+        751749,
+        600204,
+        491127
+      ]
+    },
+    "standard": {
+      "name": "Стандартный",
+      "weights": [
+        48698,
+        77660,
+        156851,
+        277217,
+        617325,
+        1000000,
+        815154,
+        675198,
+        498326,
+        319742
+      ]
+    }
+  },
+  "neutralBase": "#6B7280",
+  "sourceMobileNeutral": {
+    "50": "#F9FAFB",
+    "100": "#F3F4F6",
+    "200": "#E5E7EB",
+    "300": "#D0D5DC",
+    "400": "#9CA3B0",
+    "500": "#6B7280",
+    "600": "#4B5563",
+    "700": "#384252",
+    "800": "#1F2937",
+    "900": "#111827"
+  },
+  "referenceScales": {
+    "neutral": {
+      "base": "#6B7280",
+      "colors": {
+        "50": "#F9FAFB",
+        "100": "#F0F2F5",
+        "200": "#E5E7EB",
+        "300": "#D0D5DC",
+        "400": "#9CA3B0",
+        "500": "#6B7280",
+        "600": "#4B5563",
+        "700": "#384252",
+        "800": "#1F2937",
+        "900": "#111827"
+      }
+    },
+    "primary": {
+      "base": "#965DF5",
+      "colors": {
+        "50": "#FAF7FF",
+        "100": "#F5EFFE",
+        "200": "#E5D7FD",
+        "300": "#D5BEFB",
+        "400": "#B68EF8",
+        "500": "#965DF5",
+        "600": "#8754DD",
+        "700": "#7146B8",
+        "800": "#5A3893",
+        "900": "#4A2E78"
+      }
+    },
+    "ipr": {
+      "base": "#FF8730",
+      "colors": {
+        "50": "#FFF6F2",
+        "100": "#FFECE5",
+        "200": "#FFD7C8",
+        "300": "#FFC0A6",
+        "400": "#FFA67A",
+        "500": "#FF8730",
+        "600": "#E4792B",
+        "700": "#C66925",
+        "800": "#A1551E",
+        "900": "#723C15"
+      }
+    },
+    "secondary": {
+      "base": "#F9A207",
+      "colors": {
+        "50": "#FFFBF5",
+        "100": "#FEF7EC",
+        "200": "#FDF0D8",
+        "300": "#FCE4BA",
+        "400": "#F9C367",
+        "500": "#F9A207",
+        "600": "#C98208",
+        "700": "#A66C07",
+        "800": "#7A4F05",
+        "900": "#4F3303"
+      }
+    },
+    "tertiary": {
+      "base": "#5FB9F2",
+      "colors": {
+        "50": "#F6FCFE",
+        "100": "#F6FBFE",
+        "200": "#E7F5FD",
+        "300": "#D0EAFB",
+        "400": "#9CD4F7",
+        "500": "#5FB9F2",
+        "600": "#4E98C6",
+        "700": "#417EA4",
+        "800": "#305D78",
+        "900": "#1E3B4D"
+      }
+    },
+    "error": {
+      "base": "#EF4343",
+      "colors": {
+        "50": "#FEF6F6",
+        "100": "#FEF1F1",
+        "200": "#FCE3E3",
+        "300": "#FBCBCB",
+        "400": "#F58A8A",
+        "500": "#EF4343",
+        "600": "#C33737",
+        "700": "#A32E2E",
+        "800": "#772222",
+        "900": "#4C1515"
+      }
+    },
+    "success": {
+      "base": "#21C45D",
+      "colors": {
+        "50": "#F3FCF6",
+        "100": "#EBFAF1",
+        "200": "#DAF6E4",
+        "300": "#C3EFD4",
+        "400": "#76DB9D",
+        "500": "#21C45D",
+        "600": "#1BA14C",
+        "700": "#15843E",
+        "800": "#126430",
+        "900": "#0B411F"
+      }
+    },
+    "warning": {
+      "base": "#F59F0A",
+      "colors": {
+        "50": "#FFFBF4",
+        "100": "#FDF7EB",
+        "200": "#FDF0D8",
+        "300": "#FCE4BA",
+        "400": "#F9C367",
+        "500": "#F59F0A",
+        "600": "#C98208",
+        "700": "#A66C07",
+        "800": "#7A4F05",
+        "900": "#4F3303"
+      }
+    }
+  },
+  "mobile": [
+    {
+      "name": "mb-secondary",
+      "hex": "#965DF5",
+      "alpha": 1,
+      "generateRamp": true,
+      "profile": "brand",
+      "sourceFamily": "primary"
+    },
+    {
+      "name": "mb-background",
+      "hex": "#F9FAFB",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "neutral"
+    },
+    {
+      "name": "mb-secondary-disabled",
+      "hex": "#E5D7FD",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "primary"
+    },
+    {
+      "name": "mb-link",
+      "hex": "#5FB9F2",
+      "alpha": 1,
+      "generateRamp": true,
+      "profile": "standard",
+      "sourceFamily": "tertiary"
+    },
+    {
+      "name": "mb-star",
+      "hex": "#F9A207",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "secondary"
+    },
+    {
+      "name": "mb-warning",
+      "hex": "#F9A207",
+      "alpha": 1,
+      "generateRamp": true,
+      "profile": "standard",
+      "sourceFamily": "secondary"
+    },
+    {
+      "name": "mb-correct",
+      "hex": "#21C45D",
+      "alpha": 1,
+      "generateRamp": true,
+      "profile": "standard",
+      "sourceFamily": "success"
+    },
+    {
+      "name": "mb-wrong",
+      "hex": "#EF4343",
+      "alpha": 1,
+      "generateRamp": true,
+      "profile": "standard",
+      "sourceFamily": "error"
+    },
+    {
+      "name": "mb-progress-bar",
+      "hex": "#965DF5",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "primary"
+    },
+    {
+      "name": "mb-not-started",
+      "hex": "#F9A207",
+      "alpha": 1,
+      "generateRamp": true,
+      "profile": "standard",
+      "sourceFamily": "secondary"
+    },
+    {
+      "name": "mb-progress-bar-background",
+      "hex": "#000000",
+      "alpha": 0.2,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "overlay-black"
+    },
+    {
+      "name": "mb-fill",
+      "hex": "#FFFFFF",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "white"
+    },
+    {
+      "name": "mb-avatar",
+      "hex": "#965DF5",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "primary"
+    },
+    {
+      "name": "mb-favorite-active",
+      "hex": "#F9A207",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "secondary"
+    },
+    {
+      "name": "mb-tab-not-active",
+      "hex": "#D0D5DC",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "neutral"
+    },
+    {
+      "name": "mb-tab-active-label",
+      "hex": "#FFFFFF",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "white"
+    },
+    {
+      "name": "mb-tab-active",
+      "hex": "#965DF5",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "primary"
+    },
+    {
+      "name": "mb-element-active",
+      "hex": "#965DF5",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "primary"
+    },
+    {
+      "name": "mb-element",
+      "hex": "#111827",
+      "alpha": 1,
+      "generateRamp": false,
+      "profile": null,
+      "sourceFamily": "neutral"
+    }
+  ]
+};const NATIVE={"ios":{"name":"APTSPalette.swift","source":"import Foundation\n\npublic enum APTSPalette {\n    public enum PaletteError: Error { case invalidHex, unknownProfile, unknownToken }\n    public static let steps = [50,100,200,300,400,500,600,700,800,900]\n    private static let profiles: [String: [Int]] = [\n        \"brand\": [48730, 97728, 246996, 400867, 696861, 1000000, 901650, 751749, 600204, 491127],\n        \"standard\": [48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742]\n    ]\n    private static let neutral: [Int: String] = [\n        50: \"#F9FAFB\",\n        100: \"#F3F4F6\",\n        200: \"#E5E7EB\",\n        300: \"#D0D5DC\",\n        400: \"#9CA3B0\",\n        500: \"#6B7280\",\n        600: \"#4B5563\",\n        700: \"#384252\",\n        800: \"#1F2937\",\n        900: \"#111827\"\n    ]\n    private static let ramps: [String: (base: String, profile: String)] = [\n        \"mb-secondary\": (\"#965DF5\", \"brand\"),\n        \"mb-link\": (\"#5FB9F2\", \"standard\"),\n        \"mb-warning\": (\"#F9A207\", \"standard\"),\n        \"mb-correct\": (\"#21C45D\", \"standard\"),\n        \"mb-wrong\": (\"#EF4343\", \"standard\"),\n        \"mb-not-started\": (\"#F9A207\", \"standard\")\n    ]\n    public static func generate(name: String) throws -> [Int: String] {\n        if name == \"mb-neutral\" { return neutral }\n        guard let ramp = ramps[name] else { throw PaletteError.unknownToken }\n        return try generate(hex: ramp.base, profile: ramp.profile)\n    }\n    public static func generate(hex: String, profile: String) throws -> [Int: String] {\n        guard hex.count == 7, hex.range(of: \"^#[0-9A-Fa-f]{6}$\", options: .regularExpression) != nil,\n              let value = UInt32(hex.dropFirst(), radix: 16) else { throw PaletteError.invalidHex }\n        guard let weights = profiles[profile] else { throw PaletteError.unknownProfile }\n        let channels = [Int((value >> 16) & 255), Int((value >> 8) & 255), Int(value & 255)]\n        var result: [Int: String] = [:]\n        for (i, step) in steps.enumerated() {\n            let k = weights[i], target = step < 500 ? 255 : 0\n            let rgb = channels.map { channel in\n                (target * (1_000_000 - k) + channel * k + 500_000) / 1_000_000\n            }\n            result[step] = String(format: \"#%02X%02X%02X\", rgb[0], rgb[1], rgb[2])\n        }\n        return result\n    }\n}\n"},"android":{"name":"AptsPalette.kt","source":"import java.util.Locale\n\nobject AptsPalette {\n    private val steps = listOf(50,100,200,300,400,500,600,700,800,900)\n    private val profiles = mapOf(\n        \"brand\" to listOf(48730, 97728, 246996, 400867, 696861, 1000000, 901650, 751749, 600204, 491127),\n        \"standard\" to listOf(48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742)\n    )\n    private val neutral = mapOf(\n        50 to \"#F9FAFB\",\n        100 to \"#F3F4F6\",\n        200 to \"#E5E7EB\",\n        300 to \"#D0D5DC\",\n        400 to \"#9CA3B0\",\n        500 to \"#6B7280\",\n        600 to \"#4B5563\",\n        700 to \"#384252\",\n        800 to \"#1F2937\",\n        900 to \"#111827\"\n    )\n    private val ramps = mapOf(\n        \"mb-secondary\" to (\"#965DF5\" to \"brand\"),\n        \"mb-link\" to (\"#5FB9F2\" to \"standard\"),\n        \"mb-warning\" to (\"#F9A207\" to \"standard\"),\n        \"mb-correct\" to (\"#21C45D\" to \"standard\"),\n        \"mb-wrong\" to (\"#EF4343\" to \"standard\"),\n        \"mb-not-started\" to (\"#F9A207\" to \"standard\")\n    )\n    fun generate(name: String): Map<Int, String> {\n        if (name == \"mb-neutral\") return neutral.toMap()\n        val ramp = requireNotNull(ramps[name]) { \"Unknown ramp: $name\" }\n        return generate(ramp.first, ramp.second)\n    }\n    fun generate(hex: String, profile: String): Map<Int, String> {\n        require(Regex(\"^#[0-9A-Fa-f]{6}$\").matches(hex)) { \"Expected #RRGGBB\" }\n        val weights = requireNotNull(profiles[profile]) { \"Unknown profile: $profile\" }\n        val value = hex.substring(1).toInt(16)\n        val channels = listOf((value shr 16) and 255, (value shr 8) and 255, value and 255)\n        return steps.mapIndexed { i, step ->\n            val k = weights[i]\n            val target = if (step < 500) 255 else 0\n            val rgb = channels.map { channel ->\n                (target * (1_000_000 - k) + channel * k + 500_000) / 1_000_000\n            }\n            step to String.format(Locale.ROOT, \"#%02X%02X%02X\", rgb[0], rgb[1], rgb[2])\n        }.toMap()\n    }\n}\n"}};</script><script>const E=PaletteEngine,$=id=>document.getElementById(id),tokens=E.mobileTokens(DATA);let platform='ios';
+const escapeText=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function chip(c,label){const effective=E.hex(E.rgb(c.hex).map(v=>v*c.alpha+255*(1-c.alpha)));return `<div class="checkers"><div class="chip" style="background:${E.cssColor(c)};color:${E.foreground(effective)}"><span>${label}</span><span class="hex">${c.hex}${c.alpha===1?'':' · '+Math.round(c.alpha*100)+'%'}</span></div></div>`;}
+function ramp(name,scale){return `<article class="row"><h3>${name}</h3><div class="ramp">${E.STEPS.map(step=>`<div class="cell">${chip(scale[step],step)}<div class="name">${name}-${step}</div></div>`).join('')}</div></article>`;}
+$('ramps').innerHTML=Object.entries(tokens.scales).map(([name,scale])=>ramp(name,scale)).join('');
+$('fixed').innerHTML=DATA.mobile.filter(m=>m.generateRamp===false).map(m=>`<article class="single">${chip(tokens.originals[m.name],'')}<div class="name">${m.name}</div></article>`).join('');
+$('base').innerHTML=Object.entries(tokens.base).map(([name,c])=>`<article class="single">${chip(c,'')}<div class="name">${name}</div></article>`).join('');
+$('overlays').innerHTML=Object.entries(tokens.overlays).map(([name,scale])=>ramp(name,scale)).join('');
+function show(tab){for(const [id,button] of [['palette','paletteTab'],['comparison','comparisonTab'],['sources','sourceTab']]){$(id).hidden=tab!==id;$(button).setAttribute('aria-selected',tab===id);}}
+$('paletteTab').onclick=()=>show('palette');$('comparisonTab').onclick=()=>show('comparison');$('sourceTab').onclick=()=>show('sources');
+function highlight(source){
+ const token=/"(?:\\.|[^"\\])*"|\/\/[^\n]*|\b(?:import|public|private|static|enum|object|let|val|var|func|fun|throws|throw|try|guard|else|if|return|for|in|case|as|String|Int|UInt32|Map|List|Locale|Foundation|IntArray)\b|\b[0-9][0-9_]*(?:\.[0-9]+)?\b|\b[A-Za-z_][A-Za-z0-9_]*(?=\s*\()/g;
+ let result='',cursor=0;for(const match of source.matchAll(token)){result+=escapeText(source.slice(cursor,match.index));const value=match[0];let kind='keyword';if(value[0]==='"')kind='string';else if(value.startsWith('//'))kind='comment';else if(/^[0-9]/.test(value))kind='number';else if(/^[A-Z]/.test(value))kind='type';else if(source.slice(match.index+value.length).match(/^\s*\(/))kind='call';result+='<span class="syntax-'+kind+'">'+escapeText(value)+'</span>';cursor=match.index+value.length;}return result+escapeText(source.slice(cursor));
+}
+function showCode(id){platform=id;$('iosTab').setAttribute('aria-selected',id==='ios');$('androidTab').setAttribute('aria-selected',id==='android');$('sourceCode').innerHTML=highlight(NATIVE[id].source);$('fileName').textContent=NATIVE[id].name;const example=id==='ios'?'let brandHex = "#965DF5"\nlet shades = try APTSPalette.generate(hex: brandHex, profile: "brand")':'val brandHex = "#965DF5"\nval shades = AptsPalette.generate(brandHex, "brand")';$('namedExample').textContent=id==='ios'?'try APTSPalette.generate(name: "mb-link")':'AptsPalette.generate("mb-link")';$('exampleCode').innerHTML=highlight(example);}
+$('iosTab').onclick=()=>showCode('ios');$('androidTab').onclick=()=>showCode('android');showCode('ios');
+function download(content,name,type='text/plain'){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('downloadSource').onclick=()=>download(NATIVE[platform].source,NATIVE[platform].name);
+function handoffData(){const ramps=Object.fromEntries(DATA.mobile.filter(m=>m.generateRamp).map(m=>[m.name,{base:m.hex,profile:m.profile,colors:Object.fromEntries(Object.entries(tokens.scales[m.name]).map(([s,c])=>[s,c.hex]))}]));ramps['mb-neutral']={type:'fixedScale',colors:Object.fromEntries(Object.entries(tokens.scales['mb-neutral']).map(([s,c])=>[s,c.hex]))};const used=new Set(Object.values(ramps).map(r=>r.profile));return {algorithm:DATA.algorithm,profiles:Object.fromEntries(Object.entries(DATA.profiles).filter(([id])=>used.has(id))),ramps,fixed:Object.fromEntries(DATA.mobile.filter(m=>!m.generateRamp).map(m=>[m.name,tokens.originals[m.name]])),base:tokens.base,overlays:tokens.overlays};}
+const JSONC_HEADER='// APTS-MB-4. Mobile palette for iOS and Android.\n// ramps: generate with the named profile; original base is at 500.\n// fixed: retain as-is, including alpha. Do not generate numbered variants.\n// neutral: fixed source scale; no corrections in generated ramps.\n';
+$('downloadJsonc').onclick=()=>download(JSONC_HEADER+JSON.stringify(handoffData(),null,2)+'\n','apts-mobile.jsonc','application/json');
+function renderComparison(){
+ const rows=DATA.mobile.filter(m=>m.generateRamp).map(m=>({name:m.name,profile:m.profile,source:DATA.referenceScales[m.sourceFamily].colors,generated:tokens.scales[m.name]}));
+ rows.push({name:'mb-neutral',profile:null,source:DATA.sourceMobileNeutral,generated:tokens.scales['mb-neutral']});
+ $('comparisonRows').innerHTML=rows.map(row=>{let exact=0,max=0;const cells=E.STEPS.map(step=>{const a=row.source[step],b=row.generated[step].hex;const delta=Math.max(...E.rgb(a).map((v,i)=>Math.abs(v-E.rgb(b)[i])));if(delta===0)exact++;max=Math.max(max,delta);return `<div class="cell"><div class="compare-step">${step}</div><div class="comparison-chip">${chip({hex:a,alpha:1},'Figma')}</div><div class="comparison-chip">${chip({hex:b,alpha:1},row.profile?'Алгоритм':'Готовая шкала')}</div><div class="difference ${delta===0?'match':''}">${delta===0?'Совпадает':'ΔRGB '+delta}</div></div>`;}).join('');return `<article class="row"><div class="row-title"><h3>${row.name}</h3><small>${exact}/10 точно · макс. ΔRGB ${max}</small></div><p>${row.profile?DATA.profiles[row.profile].name+' · профиль '+row.profile:'Сохранённый набор Figma'}</p><div class="ramp">${cells}</div></article>`;}).join('');
+}
+renderComparison();
+</script></body></html>

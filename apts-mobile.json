@@ -1,0 +1,318 @@
+{
+  "algorithm": {
+    "version": "APTS-MB-4",
+    "space": "encoded-sRGB",
+    "steps": [
+      50,
+      100,
+      200,
+      300,
+      400,
+      500,
+      600,
+      700,
+      800,
+      900
+    ],
+    "denominator": 1000000,
+    "formula": "floor((T*(1000000-k)+B*k+500000)/1000000)",
+    "profiles": "brand and standard; no per-color corrections",
+    "neutral": "fixed source scale; no generation",
+    "sourceAccuracy": "brand: exact for the reference base; standard: max RGB delta 3 on the approved source shades"
+  },
+  "profiles": {
+    "brand": {
+      "name": "Брендовый",
+      "weights": [
+        48730,
+        97728,
+        246996,
+        400867,
+        696861,
+        1000000,
+        901650,
+        751749,
+        600204,
+        491127
+      ]
+    },
+    "standard": {
+      "name": "Стандартный",
+      "weights": [
+        48698,
+        77660,
+        156851,
+        277217,
+        617325,
+        1000000,
+        815154,
+        675198,
+        498326,
+        319742
+      ]
+    }
+  },
+  "ramps": {
+    "mb-secondary": {
+      "base": "#965DF5",
+      "profile": "brand",
+      "colors": {
+        "50": "#FAF7FF",
+        "100": "#F5EFFE",
+        "200": "#E5D7FD",
+        "300": "#D5BEFB",
+        "400": "#B68EF8",
+        "500": "#965DF5",
+        "600": "#8754DD",
+        "700": "#7146B8",
+        "800": "#5A3893",
+        "900": "#4A2E78"
+      }
+    },
+    "mb-link": {
+      "base": "#5FB9F2",
+      "profile": "standard",
+      "colors": {
+        "50": "#F7FCFE",
+        "100": "#F3FAFE",
+        "200": "#E6F4FD",
+        "300": "#D3ECFB",
+        "400": "#9CD4F7",
+        "500": "#5FB9F2",
+        "600": "#4D97C5",
+        "700": "#407DA3",
+        "800": "#2F5C79",
+        "900": "#1E3B4D"
+      }
+    },
+    "mb-warning": {
+      "base": "#F9A207",
+      "profile": "standard",
+      "colors": {
+        "50": "#FFFAF3",
+        "100": "#FFF8EC",
+        "200": "#FEF0D8",
+        "300": "#FDE5BA",
+        "400": "#FBC666",
+        "500": "#F9A207",
+        "600": "#CB8406",
+        "700": "#A86D05",
+        "800": "#7C5103",
+        "900": "#503402"
+      }
+    },
+    "mb-correct": {
+      "base": "#21C45D",
+      "profile": "standard",
+      "colors": {
+        "50": "#F4FCF7",
+        "100": "#EEFAF2",
+        "200": "#DCF6E6",
+        "300": "#C1EFD2",
+        "400": "#76DB9B",
+        "500": "#21C45D",
+        "600": "#1BA04C",
+        "700": "#16843F",
+        "800": "#10622E",
+        "900": "#0B3F1E"
+      }
+    },
+    "mb-wrong": {
+      "base": "#EF4343",
+      "profile": "standard",
+      "colors": {
+        "50": "#FEF6F6",
+        "100": "#FEF0F0",
+        "200": "#FCE2E2",
+        "300": "#FBCBCB",
+        "400": "#F58B8B",
+        "500": "#EF4343",
+        "600": "#C33737",
+        "700": "#A12D2D",
+        "800": "#772121",
+        "900": "#4C1515"
+      }
+    },
+    "mb-not-started": {
+      "base": "#F9A207",
+      "profile": "standard",
+      "colors": {
+        "50": "#FFFAF3",
+        "100": "#FFF8EC",
+        "200": "#FEF0D8",
+        "300": "#FDE5BA",
+        "400": "#FBC666",
+        "500": "#F9A207",
+        "600": "#CB8406",
+        "700": "#A86D05",
+        "800": "#7C5103",
+        "900": "#503402"
+      }
+    },
+    "mb-neutral": {
+      "type": "fixedScale",
+      "colors": {
+        "50": "#F9FAFB",
+        "100": "#F3F4F6",
+        "200": "#E5E7EB",
+        "300": "#D0D5DC",
+        "400": "#9CA3B0",
+        "500": "#6B7280",
+        "600": "#4B5563",
+        "700": "#384252",
+        "800": "#1F2937",
+        "900": "#111827"
+      }
+    }
+  },
+  "fixed": {
+    "mb-background": {
+      "hex": "#F9FAFB",
+      "alpha": 1
+    },
+    "mb-secondary-disabled": {
+      "hex": "#E5D7FD",
+      "alpha": 1
+    },
+    "mb-star": {
+      "hex": "#F9A207",
+      "alpha": 1
+    },
+    "mb-progress-bar": {
+      "hex": "#965DF5",
+      "alpha": 1
+    },
+    "mb-progress-bar-background": {
+      "hex": "#000000",
+      "alpha": 0.2
+    },
+    "mb-fill": {
+      "hex": "#FFFFFF",
+      "alpha": 1
+    },
+    "mb-avatar": {
+      "hex": "#965DF5",
+      "alpha": 1
+    },
+    "mb-favorite-active": {
+      "hex": "#F9A207",
+      "alpha": 1
+    },
+    "mb-tab-not-active": {
+      "hex": "#D0D5DC",
+      "alpha": 1
+    },
+    "mb-tab-active-label": {
+      "hex": "#FFFFFF",
+      "alpha": 1
+    },
+    "mb-tab-active": {
+      "hex": "#965DF5",
+      "alpha": 1
+    },
+    "mb-element-active": {
+      "hex": "#965DF5",
+      "alpha": 1
+    },
+    "mb-element": {
+      "hex": "#111827",
+      "alpha": 1
+    }
+  },
+  "base": {
+    "white": {
+      "hex": "#FFFFFF",
+      "alpha": 1
+    },
+    "black": {
+      "hex": "#000000",
+      "alpha": 1
+    }
+  },
+  "overlays": {
+    "mb-overlay-black": {
+      "50": {
+        "hex": "#000000",
+        "alpha": 0.05
+      },
+      "100": {
+        "hex": "#000000",
+        "alpha": 0.1
+      },
+      "200": {
+        "hex": "#000000",
+        "alpha": 0.2
+      },
+      "300": {
+        "hex": "#000000",
+        "alpha": 0.3
+      },
+      "400": {
+        "hex": "#000000",
+        "alpha": 0.4
+      },
+      "500": {
+        "hex": "#000000",
+        "alpha": 0.5
+      },
+      "600": {
+        "hex": "#000000",
+        "alpha": 0.6
+      },
+      "700": {
+        "hex": "#000000",
+        "alpha": 0.7
+      },
+      "800": {
+        "hex": "#000000",
+        "alpha": 0.8
+      },
+      "900": {
+        "hex": "#000000",
+        "alpha": 0.9
+      }
+    },
+    "mb-overlay-white": {
+      "50": {
+        "hex": "#FFFFFF",
+        "alpha": 0.05
+      },
+      "100": {
+        "hex": "#FFFFFF",
+        "alpha": 0.1
+      },
+      "200": {
+        "hex": "#FFFFFF",
+        "alpha": 0.2
+      },
+      "300": {
+        "hex": "#FFFFFF",
+        "alpha": 0.3
+      },
+      "400": {
+        "hex": "#FFFFFF",
+        "alpha": 0.4
+      },
+      "500": {
+        "hex": "#FFFFFF",
+        "alpha": 0.5
+      },
+      "600": {
+        "hex": "#FFFFFF",
+        "alpha": 0.6
+      },
+      "700": {
+        "hex": "#FFFFFF",
+        "alpha": 0.7
+      },
+      "800": {
+        "hex": "#FFFFFF",
+        "alpha": 0.8
+      },
+      "900": {
+        "hex": "#FFFFFF",
+        "alpha": 0.9
+      }
+    }
+  }
+}
