@@ -1,12 +1,9 @@
 import Foundation
 
 public enum APTSPalette {
-    public enum PaletteError: Error { case invalidHex, unknownProfile, unknownToken }
+    public enum PaletteError: Error { case invalidHex, unknownToken }
     public static let steps = [50,100,200,300,400,500,600,700,800,900]
-    private static let profiles: [String: [Int]] = [
-        "brand": [48730, 97728, 246996, 400867, 696861, 1000000, 901650, 751749, 600204, 491127],
-        "standard": [48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742]
-    ]
+    private static let weights = [48698,77660,156851,277217,617325,1000000,815154,675198,498326,319742]
     private static let neutral: [Int: String] = [
         50: "#F9FAFB",
         100: "#F3F4F6",
@@ -19,23 +16,22 @@ public enum APTSPalette {
         800: "#1F2937",
         900: "#111827"
     ]
-    private static let ramps: [String: (base: String, profile: String)] = [
-        "mb-secondary": ("#965DF5", "brand"),
-        "mb-link": ("#5FB9F2", "standard"),
-        "mb-warning": ("#F9A207", "standard"),
-        "mb-correct": ("#21C45D", "standard"),
-        "mb-wrong": ("#EF4343", "standard"),
-        "mb-not-started": ("#F9A207", "standard")
+    private static let ramps: [String: String] = [
+        "mb-secondary": "#965DF5",
+        "mb-link": "#5FB9F2",
+        "mb-warning": "#F9A207",
+        "mb-correct": "#21C45D",
+        "mb-wrong": "#EF4343",
+        "mb-not-started": "#F9A207"
     ]
     public static func generate(name: String) throws -> [Int: String] {
         if name == "mb-neutral" { return neutral }
         guard let ramp = ramps[name] else { throw PaletteError.unknownToken }
-        return try generate(hex: ramp.base, profile: ramp.profile)
+        return try generate(hex: ramp)
     }
-    public static func generate(hex: String, profile: String) throws -> [Int: String] {
+    public static func generate(hex: String) throws -> [Int: String] {
         guard hex.count == 7, hex.range(of: "^#[0-9A-Fa-f]{6}$", options: .regularExpression) != nil,
               let value = UInt32(hex.dropFirst(), radix: 16) else { throw PaletteError.invalidHex }
-        guard let weights = profiles[profile] else { throw PaletteError.unknownProfile }
         let channels = [Int((value >> 16) & 255), Int((value >> 8) & 255), Int(value & 255)]
         var result: [Int: String] = [:]
         for (i, step) in steps.enumerated() {

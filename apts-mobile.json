@@ -1,6 +1,6 @@
 {
   "algorithm": {
-    "version": "APTS-MB-4",
+    "version": "APTS-MB-5",
     "space": "encoded-sRGB",
     "steps": [
       50,
@@ -15,63 +15,40 @@
       900
     ],
     "denominator": 1000000,
+    "weights": [
+      48698,
+      77660,
+      156851,
+      277217,
+      617325,
+      1000000,
+      815154,
+      675198,
+      498326,
+      319742
+    ],
     "formula": "floor((T*(1000000-k)+B*k+500000)/1000000)",
-    "profiles": "brand and standard; no per-color corrections",
     "neutral": "fixed source scale; no generation",
-    "sourceAccuracy": "brand: exact for the reference base; standard: max RGB delta 3 on the approved source shades"
-  },
-  "profiles": {
-    "brand": {
-      "name": "Брендовый",
-      "weights": [
-        48730,
-        97728,
-        246996,
-        400867,
-        696861,
-        1000000,
-        901650,
-        751749,
-        600204,
-        491127
-      ]
-    },
-    "standard": {
-      "name": "Стандартный",
-      "weights": [
-        48698,
-        77660,
-        156851,
-        277217,
-        617325,
-        1000000,
-        815154,
-        675198,
-        498326,
-        319742
-      ]
-    }
+    "input": "one opaque #RRGGBB; the same weights apply to all color names"
   },
   "ramps": {
     "mb-secondary": {
       "base": "#965DF5",
-      "profile": "brand",
       "colors": {
         "50": "#FAF7FF",
-        "100": "#F5EFFE",
-        "200": "#E5D7FD",
-        "300": "#D5BEFB",
-        "400": "#B68EF8",
+        "100": "#F7F2FE",
+        "200": "#EFE6FD",
+        "300": "#E2D2FC",
+        "400": "#BE9BF9",
         "500": "#965DF5",
-        "600": "#8754DD",
-        "700": "#7146B8",
-        "800": "#5A3893",
-        "900": "#4A2E78"
+        "600": "#7A4CC8",
+        "700": "#653FA5",
+        "800": "#4B2E7A",
+        "900": "#301E4E"
       }
     },
     "mb-link": {
       "base": "#5FB9F2",
-      "profile": "standard",
       "colors": {
         "50": "#F7FCFE",
         "100": "#F3FAFE",
@@ -87,7 +64,6 @@
     },
     "mb-warning": {
       "base": "#F9A207",
-      "profile": "standard",
       "colors": {
         "50": "#FFFAF3",
         "100": "#FFF8EC",
@@ -103,7 +79,6 @@
     },
     "mb-correct": {
       "base": "#21C45D",
-      "profile": "standard",
       "colors": {
         "50": "#F4FCF7",
         "100": "#EEFAF2",
@@ -119,7 +94,6 @@
     },
     "mb-wrong": {
       "base": "#EF4343",
-      "profile": "standard",
       "colors": {
         "50": "#FEF6F6",
         "100": "#FEF0F0",
@@ -135,7 +109,6 @@
     },
     "mb-not-started": {
       "base": "#F9A207",
-      "profile": "standard",
       "colors": {
         "50": "#FFFAF3",
         "100": "#FFF8EC",

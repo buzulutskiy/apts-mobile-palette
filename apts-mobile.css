@@ -1,15 +1,15 @@
 /* APTS unified mobile palette. Source colors on 500; fixed utility tokens retain values. */
 :root {
   --mb-secondary-50: #FAF7FF;
-  --mb-secondary-100: #F5EFFE;
-  --mb-secondary-200: #E5D7FD;
-  --mb-secondary-300: #D5BEFB;
-  --mb-secondary-400: #B68EF8;
+  --mb-secondary-100: #F7F2FE;
+  --mb-secondary-200: #EFE6FD;
+  --mb-secondary-300: #E2D2FC;
+  --mb-secondary-400: #BE9BF9;
   --mb-secondary-500: #965DF5;
-  --mb-secondary-600: #8754DD;
-  --mb-secondary-700: #7146B8;
-  --mb-secondary-800: #5A3893;
-  --mb-secondary-900: #4A2E78;
+  --mb-secondary-600: #7A4CC8;
+  --mb-secondary-700: #653FA5;
+  --mb-secondary-800: #4B2E7A;
+  --mb-secondary-900: #301E4E;
   --mb-link-50: #F7FCFE;
   --mb-link-100: #F3FAFE;
   --mb-link-200: #E6F4FD;

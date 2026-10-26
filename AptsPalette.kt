@@ -2,10 +2,7 @@ import java.util.Locale
 
 object AptsPalette {
     private val steps = listOf(50,100,200,300,400,500,600,700,800,900)
-    private val profiles = mapOf(
-        "brand" to listOf(48730, 97728, 246996, 400867, 696861, 1000000, 901650, 751749, 600204, 491127),
-        "standard" to listOf(48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742)
-    )
+    private val weights = listOf(48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742)
     private val neutral = mapOf(
         50 to "#F9FAFB",
         100 to "#F3F4F6",
@@ -19,21 +16,20 @@ object AptsPalette {
         900 to "#111827"
     )
     private val ramps = mapOf(
-        "mb-secondary" to ("#965DF5" to "brand"),
-        "mb-link" to ("#5FB9F2" to "standard"),
-        "mb-warning" to ("#F9A207" to "standard"),
-        "mb-correct" to ("#21C45D" to "standard"),
-        "mb-wrong" to ("#EF4343" to "standard"),
-        "mb-not-started" to ("#F9A207" to "standard")
+        "mb-secondary" to "#965DF5",
+        "mb-link" to "#5FB9F2",
+        "mb-warning" to "#F9A207",
+        "mb-correct" to "#21C45D",
+        "mb-wrong" to "#EF4343",
+        "mb-not-started" to "#F9A207"
     )
     fun generate(name: String): Map<Int, String> {
         if (name == "mb-neutral") return neutral.toMap()
         val ramp = requireNotNull(ramps[name]) { "Unknown ramp: $name" }
-        return generate(ramp.first, ramp.second)
+        return generateFromHex(ramp)
     }
-    fun generate(hex: String, profile: String): Map<Int, String> {
+    fun generateFromHex(hex: String): Map<Int, String> {
         require(Regex("^#[0-9A-Fa-f]{6}$").matches(hex)) { "Expected #RRGGBB" }
-        val weights = requireNotNull(profiles[profile]) { "Unknown profile: $profile" }
         val value = hex.substring(1).toInt(16)
         val channels = listOf((value shr 16) and 255, (value shr 8) and 255, value and 255)
         return steps.mapIndexed { i, step ->

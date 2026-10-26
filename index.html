@@ -1,25 +1,49 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Мобильная палитра — спецификация</title><style>
 *{box-sizing:border-box}body{margin:0;background:#fafafa;color:#24242a;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:1400px;margin:auto;padding:25px 28px 55px}header{display:flex;justify-content:space-between;align-items:center;gap:18px}h1{font-size:24px;letter-spacing:-.5px;margin:0}h2{font-size:19px;margin:28px 0 6px}h3{font-size:14px;margin:0 0 12px;font-weight:600}p{margin:7px 0 18px;color:#777780;font-size:13px}button{font:inherit;cursor:pointer;border:1px solid #dddde5;background:white;color:#34323b;border-radius:7px;padding:9px 13px}button:hover{border-color:#965df5}button:focus-visible{outline:3px solid #b68ef8;outline-offset:3px}.download{background:#7146b8;color:white;border-color:#7146b8;white-space:nowrap}.tabs{display:flex;gap:24px;border-bottom:1px solid #dddde5;margin:20px 0}.tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;padding:10px 0;color:#777780}.tabs button[aria-selected=true]{color:#7146b8;border-bottom-color:#7146b8}.row{padding:17px 18px;border:1px solid #e7e7eb;border-radius:9px;background:white;margin:16px 0}.ramp{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px}.cell{min-width:0}.chip{height:82px;border-radius:5px;border:1px solid #00000009;display:flex;flex-direction:column;justify-content:space-between;padding:9px;font-size:11px}.hex{font:10px ui-monospace,SFMono-Regular,monospace}.name{font:10px/1.4 ui-monospace,SFMono-Regular,monospace;color:#777780;overflow-wrap:anywhere;margin-top:6px}.single-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.single{padding:12px;border:1px solid #e7e7eb;border-radius:8px;background:white;min-width:0}.single .chip{height:55px}.single .name{font-size:11px;color:#34323b}.checkers{border-radius:5px;background:repeating-conic-gradient(#eeeef2 0% 25%,#fff 0% 50%) 50%/12px 12px}.note{font-size:12px;color:#777780;border-left:3px solid #d5befb;padding-left:12px;max-width:900px}.code-tabs{display:flex;gap:7px;margin:18px 0 12px}.code-tabs button[aria-selected=true]{background:#f1eafa;border-color:#b68ef8;color:#7146b8}.code-head{display:flex;align-items:center;justify-content:space-between;gap:14px}.code-head span{font:12px ui-monospace,monospace;color:#777780}.source{background:#191b24;color:#e5dfef;border-radius:9px;padding:20px;font:12px/1.7 ui-monospace,SFMono-Regular,monospace;white-space:pre;overflow:auto;margin:12px 0}.formula{font:12px/1.8 ui-monospace,monospace;background:#f1f0f5;padding:15px;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}details{margin-top:26px}summary{cursor:pointer;font-weight:500;font-size:13px}[hidden]{display:none!important}.fixed-note{font-size:11px;color:#777780;margin-top:5px}.footer{margin-top:30px;font-size:11px;color:#9999a0}@media(max-width:1000px){.single-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.chip{padding:7px}.hex{font-size:9px}}@media(max-width:700px){main{padding:20px 16px}header{align-items:flex-start}h1{font-size:21px}.download{font-size:12px;padding:9px}.ramp{grid-template-columns:repeat(5,minmax(0,1fr));gap:12px 6px}.row{padding:14px 12px}.single-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.source{font-size:11px;padding:15px}.chip{height:78px}.name{font-size:9px}}
-.comparison-chip .chip{height:65px}.comparison-chip{margin-bottom:5px}.compare-step{font-size:11px;font-weight:600;margin-bottom:7px}.difference{font-size:10px;color:#777780;margin-top:7px}.difference.match{color:#45845b}.row-title{display:flex;justify-content:space-between;gap:12px}.row-title small{font-size:11px;color:#777780}.tabs{flex-wrap:wrap;gap:20px}@media(max-width:700px){.tabs{gap:16px}.tabs button{font-size:12px}}.spec{background:white;border:1px solid #e7e7eb;border-radius:9px;padding:16px 20px;margin:13px 0 20px}.spec ol{margin:0;padding-left:19px}.spec li{margin:0 0 10px;font-size:13px;line-height:1.6}.spec p{margin:12px 0 0;font-size:12px}.spec-formula{font:12px/1.7 ui-monospace,monospace;background:#f4f2f8;padding:10px 12px;border-radius:6px;overflow-wrap:anywhere}.example-title{margin:18px 0 10px}.example-code{background:#191b24;color:#e5dfef;padding:14px 18px;border-radius:8px;overflow:auto;font:12px/1.7 ui-monospace,monospace;margin:0 0 8px}.example-result{font-size:12px}.syntax-keyword{color:#c792ea}.syntax-string{color:#c3e88d}.syntax-number{color:#f7ae71}.syntax-type{color:#ffcb6b}.syntax-call{color:#82aaff}.syntax-comment{color:#8f99ad}.source{tab-size:4}</style></head><body><main><header><h1>Мобильная палитра</h1><button id="downloadJsonc" class="download">Скачать JSONC ↓</button></header><nav class="tabs" role="tablist" aria-label="Спецификация"><button id="paletteTab" role="tab" aria-selected="true" aria-controls="palette">Палитра</button><button id="comparisonTab" role="tab" aria-selected="false" aria-controls="comparison">Сравнение с Figma</button><button id="sourceTab" role="tab" aria-selected="false" aria-controls="sources">Исходный код</button></nav>
-<section id="palette" role="tabpanel" aria-labelledby="paletteTab"><h2>Цвета с растяжками</h2><p>6 цветных растяжек по двум профилям и готовая нейтральная шкала. Исходный цвет — на 500.</p><div id="ramps"></div><h2>Оставляем как есть</h2><p>13 переменных без растяжек, включая mb-background. Сохраняются имя, цвет и прозрачность.</p><div id="fixed" class="single-grid"></div><details><summary>Базовые цвета и наложения</summary><div id="base" class="single-grid" style="margin-top:15px"></div><div id="overlays"></div></details></section>
-<section id="comparison" role="tabpanel" aria-labelledby="comparisonTab" hidden><h2>Figma и упрощённый алгоритм</h2><p>В каждой паре сверху исходная заливка Figma, снизу — новый результат. Здесь показаны те же цвета, которые выгружаются в JSONC.</p><div class="note">Брендовый профиль на исходной базе: 10 из 10 совпадают точно. Голубой, жёлтый, красный и зелёный используют профиль «Стандартный»: на исходных 40 оттенках разница не превышает 3 единицы RGB из 255. Нейтральная шкала сохранена готовым набором.</div><div id="comparisonRows"></div></section><section id="sources" role="tabpanel" aria-labelledby="sourceTab" hidden>
+.comparison-chip .chip{height:65px}.comparison-chip{margin-bottom:5px}.compare-step{font-size:11px;font-weight:600;margin-bottom:7px}.difference{font-size:10px;color:#777780;margin-top:7px}.difference.match{color:#45845b}.row-title{display:flex;justify-content:space-between;gap:12px}.row-title small{font-size:11px;color:#777780}.tabs{flex-wrap:wrap;gap:20px}@media(max-width:700px){.tabs{gap:16px}.tabs button{font-size:12px}}.spec{background:white;border:1px solid #e7e7eb;border-radius:9px;padding:16px 20px;margin:13px 0 20px}.spec ol{margin:0;padding-left:19px}.spec li{margin:0 0 10px;font-size:13px;line-height:1.6}.spec p{margin:12px 0 0;font-size:12px}.spec-formula{font:12px/1.7 ui-monospace,monospace;background:#f4f2f8;padding:10px 12px;border-radius:6px;overflow-wrap:anywhere}.example-title{margin:18px 0 10px}.example-code{background:#191b24;color:#e5dfef;padding:14px 18px;border-radius:8px;overflow:auto;font:12px/1.7 ui-monospace,monospace;margin:0 0 8px}.example-result{font-size:12px}.syntax-keyword{color:#c792ea}.syntax-string{color:#c3e88d}.syntax-number{color:#f7ae71}.syntax-type{color:#ffcb6b}.syntax-call{color:#82aaff}.syntax-comment{color:#8f99ad}.source{tab-size:4}.check-start{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:24px}.check-start>div{display:flex;flex-direction:column;gap:7px}.check-start strong{font-size:13px}.check-start small,.check-start label{font-size:12px;color:#666872}.check-start input{width:100%;max-width:260px;border:1px solid #cfcfd8;border-radius:7px;padding:9px 11px;font:14px ui-monospace,monospace;background:white;color:#24242a}.check-start input:focus-visible,.check-table input:focus-visible{outline:3px solid #b68ef8;outline-offset:2px}.check-start input[aria-invalid=true],.check-table input[aria-invalid=true]{border-color:#b32636}.profile-value{font-size:18px;margin-top:6px}.field-error{color:#a71c30;font-size:13px;min-height:20px}.check-actions{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 24px}.check-actions button:disabled{opacity:.45;cursor:default}.check-heading{margin:24px 0 10px;font-size:15px}.format-example{padding:13px 16px;background:white;border:1px solid #e7e7eb;border-radius:8px;display:flex;align-items:center;flex-wrap:wrap;gap:14px;font:13px ui-monospace,monospace}.format-preview{width:24px;height:24px;border-radius:5px;border:1px solid #0002;display:inline-block;flex-shrink:0}.check-help{font-size:12px;line-height:1.7;margin:10px 0 16px;color:#666872}.check-code-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.check-code-grid>div{min-width:0}.check-code-grid .example-code{min-height:143px}.check-table-scroll{overflow:auto;scrollbar-color:#aaa5b5 #eeedf2;scrollbar-width:thin;border:1px solid #e7e7eb;border-radius:9px;background:white}.check-table{border-collapse:collapse;width:100%;min-width:1000px;text-align:left;font-size:12px}.check-table caption{text-align:left;padding:12px 14px;font-size:13px;font-weight:600}.check-table th,.check-table td{border-top:1px solid #ecebf1;padding:11px 12px;vertical-align:top}.check-table th{font-size:11px;color:#666872;font-weight:500;background:#f7f6f9}.check-table th:first-child,.check-table td:first-child{width:60px}.check-table tr.base-step td{background:#f6f2fc}.check-table td code{font-size:11px;white-space:nowrap}.check-table input{font:12px ui-monospace,monospace;padding:8px;width:168px;border:1px solid #cfcfd8;border-radius:6px;color:#24242a;background:white}.table-color{display:flex;align-items:center;gap:6px}.table-dot{width:13px;height:13px;display:inline-block;border-radius:3px;border:1px solid #0002;flex-shrink:0}.color-int{display:block;margin-top:5px;font:10px ui-monospace,monospace;color:#747580}.result-text{min-width:190px;font-size:11px;line-height:1.5}.result-text.pass{color:#206b3d}.result-text.fail{color:#a71c30}.result-text.partial{color:#876011}.result-text.empty{color:#747580}.result-color{margin-top:5px;display:flex;align-items:center;gap:6px;font:10px ui-monospace,monospace}.check-details{font-size:12px;line-height:1.7}.check-details ol{padding-left:20px;color:#666872}.check-details li{margin:7px 0}.check-details p{font-size:12px}.check-table-scroll:focus-visible{outline:3px solid #b68ef8;outline-offset:2px}html{scrollbar-color:#aaa5b5 #eeedf2;scrollbar-width:thin}@media(max-width:800px){.check-start{grid-template-columns:1fr;gap:18px}.check-code-grid{grid-template-columns:1fr}.check-code-grid .example-code{min-height:0}.format-example{font-size:12px}.check-table-scroll{margin-right:0}}
+</style></head><body><main><header><h1>Мобильная палитра</h1><button onclick="downloadJsonc()" id="downloadJsonc" class="download">Скачать JSONC ↓</button></header><nav class="tabs" role="tablist" aria-label="Спецификация"><button onclick="show('palette')" id="paletteTab" role="tab" aria-selected="true" aria-controls="palette">Палитра</button><button onclick="show('check')" id="checkTab" role="tab" aria-selected="false" aria-controls="check">Проверка HEX</button><button onclick="show('comparison')" id="comparisonTab" role="tab" aria-selected="false" aria-controls="comparison">Сравнение с Figma</button><button onclick="show('sources')" id="sourceTab" role="tab" aria-selected="false" aria-controls="sources">Исходный код</button></nav>
+<section id="palette" role="tabpanel" aria-labelledby="paletteTab"><h2>Цвета с растяжками</h2><p>6 цветных растяжек по одной формуле и готовая нейтральная шкала. Исходный цвет — на 500.</p><div id="ramps"></div><h2>Оставляем как есть</h2><p>13 переменных без растяжек, включая mb-background. Сохраняются имя, цвет и прозрачность.</p><div id="fixed" class="single-grid"></div><details><summary>Базовые цвета и наложения</summary><div id="base" class="single-grid" style="margin-top:15px"></div><div id="overlays"></div></details></section>
+<section id="check" role="tabpanel" aria-labelledby="checkTab" hidden>
+<h2>Контрольная проверка: mb-correct</h2>
+<p>На созвоне сравнивайте числовые значения, а не скриншоты. Для зелёного, брендового и любого другого цвета теперь используется одна и та же формула.</p>
+<div class="spec check-start"><div><strong>1. База 500</strong><label for="checkBase">Исходный цвет</label><input id="checkBase" type="text" value="#21C45D" spellcheck="false" autocomplete="off" aria-describedby="checkBaseHelp checkBaseError"><small id="checkBaseHelp">#RRGGBB или Android #FFRRGGBB</small></div><div><strong>2. Единая формула</strong><code class="profile-value">APTS-MB-5</code><small>Одна таблица коэффициентов. Выбора профиля нет.</small></div><div><strong>3. Результат</strong><span>10 оттенков 50–900</span><small>Код ниже, таблица и JSONC используют один генератор.</small></div></div>
+<div id="checkBaseError" class="field-error" role="alert"></div>
+<div class="check-actions"><button onclick="resetGreenCheck()" id="resetCheck">Вернуть исходную базу</button><button onclick="downloadGreenCheck()" id="downloadCheck">Скачать контрольные HEX ↓</button></div>
+<div id="checkResults">
+<h3 class="check-heading">Один цвет — разные записи</h3>
+<div id="greenFormatExample" class="format-example"></div>
+<p class="check-help">В Android <code>#AARRGGBB</code> первые две цифры — прозрачность: <code>FF</code> означает 100%. Они не меняют RGB. Отрицательный ColorInt — другая запись тех же 32 бит.</p>
+<div class="check-code-grid"><div><h3>iOS · Swift</h3><pre class="example-code"><code id="greenSwift"></code></pre></div><div><h3>Android · Kotlin</h3><pre class="example-code"><code id="greenKotlin"></code></pre></div></div>
+<p class="check-help">Наш Kotlin-генератор возвращает <code>#RRGGBB</code>. Вызов <code>Color.parseColor(hex)</code> преобразует его в Android ColorInt, а <code>String.format(Locale.ROOT, "#%08X", colorInt)</code> выводит <code>#AARRGGBB</code>.</p>
+<details class="check-details"><summary>Если в Compose выводится больше 8 HEX-цифр</summary><p><code>Color.value</code> — упакованное 64-битное значение. Для сравнения получите <code>color.toArgb()</code>: это 32-битный sRGB ARGB. Затем выведите <code>String.format(Locale.ROOT, "#%08X", color.toArgb())</code>.</p><pre class="example-code"><code>import androidx.compose.ui.graphics.toArgb
+val argb = composeColor.toArgb()
+val hex = String.format(Locale.ROOT, "#%08X", argb)</code></pre></details>
+<h3 class="check-heading">Вставьте полученные у разработки значения</h3>
+<p class="check-help">Поддерживаются RGB (<code>#21C45D</code>), Android ARGB (<code>#FF21C45D</code>, <code>0xFF21C45D</code>) и отрицательный Int. Положительное десятичное число укажите как <code>int:…</code>. Восемь HEX-цифр здесь всегда читаются как <strong>AARRGGBB</strong>, не CSS RRGGBBAA.</p>
+<p id="differentBaseNote" class="note" hidden>Сейчас задана другая база. Результат генерации изменён; столбец Figma по-прежнему показывает исходный макет.</p>
+<div class="check-table-scroll" tabindex="0" role="region" aria-label="Сравнение HEX по 10 ступеням"><table class="check-table"><caption>mb-correct · Figma, генератор и ваши значения</caption><thead><tr><th scope="col">Ступень</th><th scope="col">Figma · RGB</th><th scope="col">Генерация · RGB</th><th scope="col">Android · ARGB / Int</th><th scope="col">Ваш HEX / ColorInt</th><th scope="col">Сравнение с генерацией</th></tr></thead><tbody id="checkRows"></tbody></table></div>
+<p class="check-help">У единой формулы возможны отличия от Figma. Поле справа проверяет точное совпадение с генератором, включая прозрачность.</p>
+<details class="check-details"><summary>Что проверять по скриншоту разработчика</summary><ol><li>Сначала сравнить HEX на 500: у всех способов должна быть одна база.</li><li>В старой версии были brand и standard: они давали разные растяжки одной базы. В APTS-MB-5 оставлена одна кривая — бывшая standard.</li><li>Для второй полосы нужна её формула: изображение показывает другую растяжку, но не раскрывает использованные коэффициенты.</li><li>Сравнивать HEX и ARGB, а не пиксели скриншотов: цветовой профиль изображения и экрана может влиять на видимый цвет.</li></ol></details>
+<p class="check-help">Форматы: <a href="https://developer.android.com/reference/android/graphics/Color#parseColor(java.lang.String)" target="_blank" rel="noreferrer">Android Color</a> · <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/ui/ui-graphics/src/commonMain/kotlin/androidx/compose/ui/graphics/Color.kt" target="_blank" rel="noreferrer">Compose Color / toArgb</a>.</p>
+</div></section>
+<section id="comparison" role="tabpanel" aria-labelledby="comparisonTab" hidden><h2>Figma и упрощённый алгоритм</h2><p>В каждой паре сверху исходная заливка Figma, снизу — новый результат. Здесь показаны те же цвета, которые выгружаются в JSONC.</p><div class="note">Все цветные шкалы используют одну формулу. Голубой, жёлтый, красный и зелёный отличаются от исходных 40 оттенков максимум на 3 единицы RGB из 255. Фиолетовая шкала приведена к той же кривой и отличается заметнее. Нейтральные цвета сохранены как готовый набор.</div><div id="comparisonRows"></div></section><section id="sources" role="tabpanel" aria-labelledby="sourceTab" hidden>
 <h2>Как получить палитру</h2>
 <div class="spec">
 <ol>
 <li><strong>Задайте базовый цвет</strong> в формате <code>#RRGGBB</code>. Это будущая ступень <strong>500</strong>.</li>
-<li><strong>Выберите профиль.</strong> <code>brand</code> — для настраиваемого <code>mb-secondary</code>, независимо от его цвета. <code>standard</code> — для ссылок и индикаторов.</li>
-<li><strong>Функция вернёт 10 оттенков.</strong> Для 50–400 к базе добавляется белый, для 600–900 — чёрный. Сколько добавить на каждой ступени, определяют 10 коэффициентов выбранного профиля.</li>
+<li><strong>Одна таблица коэффициентов для всех цветов.</strong> Брендовый цвет может быть зелёным, красным или любым другим. Один и тот же HEX всегда даёт одинаковую растяжку.</li>
+<li><strong>Функция вернёт 10 оттенков.</strong> Для 50–400 к базе добавляется белый, для 600–900 — чёрный. Сколько добавить на каждой ступени, определяют 10 общих коэффициентов.</li>
 </ol>
 <div class="spec-formula">Канал оттенка = round(канал базы × доля базы + белый/чёрный × оставшаяся доля)</div>
-<p>Например, <code>brand / 400</code> — это <strong>69,6861% базы + 30,3139% белого</strong>. Все три канала RGB считаются отдельно и округляются до целых.</p>
+<p>Например, ступень <code>400</code> — это <strong>61,7325% базы + 38,2675% белого</strong>. Все три канала RGB считаются отдельно и округляются до целых.</p>
 <p><code>mb-neutral</code> берётся из готовой шкалы. 13 одиночных цветов, включая <code>mb-background</code>, берутся из <code>fixed</code> в JSONC.</p>
 </div>
 <h3 class="example-title">Пример: построить палитру бренда</h3>
 <pre class="example-code"><code id="exampleCode"></code></pre>
-<p class="example-result">В примере: <code>shades[500] → #965DF5</code>, <code>shades[400] → #B68EF8</code>. Замените <code>brandHex</code> на любой другой цвет — профиль останется <code>brand</code>.</p>
+<p class="example-result">В примере: <code>shades[500] → #965DF5</code>, <code>shades[400] → #BE9BF9</code>. Замените <code>brandHex</code> на любой другой цвет. Выбирать профиль не требуется.</p>
 <p class="example-result">Получить уже заданную шкалу по имени: <code id="namedExample"></code>.</p>
 <h2>Полный исходный код</h2>
-<div class="code-tabs" role="tablist" aria-label="Платформа"><button id="iosTab" role="tab" aria-selected="true">iOS · Swift</button><button id="androidTab" role="tab" aria-selected="false">Android · Kotlin</button></div><div class="code-head"><span id="fileName"></span><button id="downloadSource">Скачать исходник ↓</button></div><pre class="source"><code id="sourceCode"></code></pre></section><div class="footer">APTS-MB-4 · данные и исходный код находятся внутри этой страницы · 16.10.2026</div></main><script>/* APTS-MB-4: one mixing function with two shared profiles and a fixed neutral scale.
+<div class="code-tabs" role="tablist" aria-label="Платформа"><button onclick="showCode('ios')" id="iosTab" role="tab" aria-selected="true">iOS · Swift</button><button onclick="showCode('android')" id="androidTab" role="tab" aria-selected="false">Android · Kotlin</button></div><div class="code-head"><span id="fileName"></span><button onclick="downloadSelectedSource()" id="downloadSource">Скачать исходник ↓</button></div><pre class="source"><code id="sourceCode"></code></pre></section><div class="footer">APTS-MB-5 · данные и исходный код находятся внутри этой страницы · 26.10.2026</div></main><script>/* APTS-MB-5: one mixing function with one shared curve and a fixed neutral scale.
    Encoded sRGB channels 0–255, integer rational coefficients, half-up rounding.
    Current source colors stay on 500. Thirteen utility colors remain fixed tokens.
    The existing Figma scales are references, not outputs of a proven authoring algorithm. */
@@ -30,15 +54,14 @@ const DENOMINATOR=1000000;
 const ALPHAS=[.05,.1,.2,.3,.4,.5,.6,.7,.8,.9];
 function rgb(value){if(typeof value!=='string'||value.length!==7||!/^#[0-9a-f]{6}$/i.test(value))throw new Error('Ожидается HEX в формате #RRGGBB');return [1,3,5].map(i=>parseInt(value.slice(i,i+2),16));}
 function hex(channels){return '#'+channels.map(v=>Math.max(0,Math.min(255,Math.floor(v+.5))).toString(16).padStart(2,'0')).join('').toUpperCase();}
-const PROFILES={"brand":{"name":"\u0424\u0438\u043e\u043b\u0435\u0442\u043e\u0432\u044b\u0439","weights":[48730,97728,246996,400867,696861,1000000,901650,751749,600204,491127]},"standard":{"name":"\u0426\u0432\u0435\u0442\u043d\u043e\u0439","weights":[48698,77660,156851,277217,617325,1000000,815154,675198,498326,319742]}};
-function generateScale(base, profileId) {
- const p=PROFILES[profileId];if(!p)throw Error('Unknown color profile: '+profileId);
+const WEIGHTS=[48698,77660,156851,277217,617325,1000000,815154,675198,498326,319742];
+function generateScale(base) {
  const channels=rgb(base);
- return Object.fromEntries(STEPS.map((step,i)=>{const k=p.weights[i],t=step<500?255:0;return [step,hex(channels.map(c=>Math.floor((t*(DENOMINATOR-k)+c*k+DENOMINATOR/2)/DENOMINATOR)))];}));
+ return Object.fromEntries(STEPS.map((step,i)=>{const k=WEIGHTS[i],t=step<500?255:0;return [step,hex(channels.map(c=>Math.floor((t*(DENOMINATOR-k)+c*k+DENOMINATOR/2)/DENOMINATOR)))];}));
 }
 function mobileTokens(data){
  const scales={},originals={},aliases={};
- for(const m of data.mobile){originals[m.name]={hex:m.hex,alpha:m.alpha};if(m.generateRamp!==false){scales[m.name]=Object.fromEntries(Object.entries(generateScale(m.hex,m.profile)).map(([s,hex])=>[s,{hex,alpha:1}]));aliases[m.name]=m.name+'-500';}}
+ for(const m of data.mobile){originals[m.name]={hex:m.hex,alpha:m.alpha};if(m.generateRamp!==false){scales[m.name]=Object.fromEntries(Object.entries(generateScale(m.hex)).map(([s,hex])=>[s,{hex,alpha:1}]));aliases[m.name]=m.name+'-500';}}
  scales['mb-neutral']=Object.fromEntries(Object.entries(data.sourceMobileNeutral).map(([s,hex])=>[s,{hex,alpha:1}]));
  const base={white:{hex:'#FFFFFF',alpha:1},black:{hex:'#000000',alpha:1}};
  const overlays=Object.fromEntries(['black','white'].map(kind=>['mb-overlay-'+kind,Object.fromEntries(STEPS.map((s,i)=>[s,{hex:base[kind].hex,alpha:ALPHAS[i]}]))]));
@@ -48,12 +71,12 @@ function cssColor(c){return c.alpha===1?c.hex:`rgb(${rgb(c.hex).join(' ')} / ${c
 function cssTokens(data){const t=mobileTokens(data),lines=['/* APTS unified mobile palette. Source colors on 500; fixed utility tokens retain values. */',':root {'];for(const [name,scale]of Object.entries({...t.scales,...t.overlays}))for(const [s,c]of Object.entries(scale))lines.push(`  --${name}-${s}: ${cssColor(c)};`);for(const [name,c]of Object.entries(t.base))lines.push(`  --${name}: ${cssColor(c)};`);for(const [name,c]of Object.entries(t.originals))lines.push(`  --${name}: ${t.aliases[name]?`var(--${t.aliases[name]})`:cssColor(c)};`);lines.push('}');return lines.join('\n');}
 function luminance(c){return rgb(c).map(v=>{v/=255;return v<=.04045?v/12.92:((v+.055)/1.055)**2.4}).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);}
 function foreground(c){const l=luminance(c);return (l+.05)/.05>=1.05/(l+.05)?'#000000':'#FFFFFF';}
-const api={PROFILES,generateScale,STEPS,DENOMINATOR,ALPHAS,rgb,hex,mobileTokens,cssColor,cssTokens,luminance,foreground};
+const api={WEIGHTS,generateScale,STEPS,DENOMINATOR,ALPHAS,rgb,hex,mobileTokens,cssColor,cssTokens,luminance,foreground};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEngine=api;
 })(typeof globalThis!=='undefined'?globalThis:this);
 </script><script>const DATA={
   "algorithm": {
-    "version": "APTS-MB-4",
+    "version": "APTS-MB-5",
     "space": "encoded-sRGB",
     "steps": [
       50,
@@ -68,42 +91,21 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       900
     ],
     "denominator": 1000000,
+    "weights": [
+      48698,
+      77660,
+      156851,
+      277217,
+      617325,
+      1000000,
+      815154,
+      675198,
+      498326,
+      319742
+    ],
     "formula": "floor((T*(1000000-k)+B*k+500000)/1000000)",
-    "profiles": "brand and standard; no per-color corrections",
     "neutral": "fixed source scale; no generation",
-    "sourceAccuracy": "brand: exact for the reference base; standard: max RGB delta 3 on the approved source shades"
-  },
-  "profiles": {
-    "brand": {
-      "name": "Брендовый",
-      "weights": [
-        48730,
-        97728,
-        246996,
-        400867,
-        696861,
-        1000000,
-        901650,
-        751749,
-        600204,
-        491127
-      ]
-    },
-    "standard": {
-      "name": "Стандартный",
-      "weights": [
-        48698,
-        77660,
-        156851,
-        277217,
-        617325,
-        1000000,
-        815154,
-        675198,
-        498326,
-        319742
-      ]
-    }
+    "input": "one opaque #RRGGBB; the same weights apply to all color names"
   },
   "neutralBase": "#6B7280",
   "sourceMobileNeutral": {
@@ -246,7 +248,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "brand",
       "sourceFamily": "primary"
     },
     {
@@ -254,7 +255,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#F9FAFB",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "neutral"
     },
     {
@@ -262,7 +262,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#E5D7FD",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -270,7 +269,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#5FB9F2",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "tertiary"
     },
     {
@@ -278,7 +276,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "secondary"
     },
     {
@@ -286,7 +283,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "secondary"
     },
     {
@@ -294,7 +290,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#21C45D",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "success"
     },
     {
@@ -302,7 +297,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#EF4343",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "error"
     },
     {
@@ -310,7 +304,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -318,7 +311,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "secondary"
     },
     {
@@ -326,7 +318,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#000000",
       "alpha": 0.2,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "overlay-black"
     },
     {
@@ -334,7 +325,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#FFFFFF",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "white"
     },
     {
@@ -342,7 +332,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -350,7 +339,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "secondary"
     },
     {
@@ -358,7 +346,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#D0D5DC",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "neutral"
     },
     {
@@ -366,7 +353,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#FFFFFF",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "white"
     },
     {
@@ -374,7 +360,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -382,7 +367,6 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -390,11 +374,46 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;root.PaletteEn
       "hex": "#111827",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "neutral"
     }
-  ]
-};const NATIVE={"ios":{"name":"APTSPalette.swift","source":"import Foundation\n\npublic enum APTSPalette {\n    public enum PaletteError: Error { case invalidHex, unknownProfile, unknownToken }\n    public static let steps = [50,100,200,300,400,500,600,700,800,900]\n    private static let profiles: [String: [Int]] = [\n        \"brand\": [48730, 97728, 246996, 400867, 696861, 1000000, 901650, 751749, 600204, 491127],\n        \"standard\": [48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742]\n    ]\n    private static let neutral: [Int: String] = [\n        50: \"#F9FAFB\",\n        100: \"#F3F4F6\",\n        200: \"#E5E7EB\",\n        300: \"#D0D5DC\",\n        400: \"#9CA3B0\",\n        500: \"#6B7280\",\n        600: \"#4B5563\",\n        700: \"#384252\",\n        800: \"#1F2937\",\n        900: \"#111827\"\n    ]\n    private static let ramps: [String: (base: String, profile: String)] = [\n        \"mb-secondary\": (\"#965DF5\", \"brand\"),\n        \"mb-link\": (\"#5FB9F2\", \"standard\"),\n        \"mb-warning\": (\"#F9A207\", \"standard\"),\n        \"mb-correct\": (\"#21C45D\", \"standard\"),\n        \"mb-wrong\": (\"#EF4343\", \"standard\"),\n        \"mb-not-started\": (\"#F9A207\", \"standard\")\n    ]\n    public static func generate(name: String) throws -> [Int: String] {\n        if name == \"mb-neutral\" { return neutral }\n        guard let ramp = ramps[name] else { throw PaletteError.unknownToken }\n        return try generate(hex: ramp.base, profile: ramp.profile)\n    }\n    public static func generate(hex: String, profile: String) throws -> [Int: String] {\n        guard hex.count == 7, hex.range(of: \"^#[0-9A-Fa-f]{6}$\", options: .regularExpression) != nil,\n              let value = UInt32(hex.dropFirst(), radix: 16) else { throw PaletteError.invalidHex }\n        guard let weights = profiles[profile] else { throw PaletteError.unknownProfile }\n        let channels = [Int((value >> 16) & 255), Int((value >> 8) & 255), Int(value & 255)]\n        var result: [Int: String] = [:]\n        for (i, step) in steps.enumerated() {\n            let k = weights[i], target = step < 500 ? 255 : 0\n            let rgb = channels.map { channel in\n                (target * (1_000_000 - k) + channel * k + 500_000) / 1_000_000\n            }\n            result[step] = String(format: \"#%02X%02X%02X\", rgb[0], rgb[1], rgb[2])\n        }\n        return result\n    }\n}\n"},"android":{"name":"AptsPalette.kt","source":"import java.util.Locale\n\nobject AptsPalette {\n    private val steps = listOf(50,100,200,300,400,500,600,700,800,900)\n    private val profiles = mapOf(\n        \"brand\" to listOf(48730, 97728, 246996, 400867, 696861, 1000000, 901650, 751749, 600204, 491127),\n        \"standard\" to listOf(48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742)\n    )\n    private val neutral = mapOf(\n        50 to \"#F9FAFB\",\n        100 to \"#F3F4F6\",\n        200 to \"#E5E7EB\",\n        300 to \"#D0D5DC\",\n        400 to \"#9CA3B0\",\n        500 to \"#6B7280\",\n        600 to \"#4B5563\",\n        700 to \"#384252\",\n        800 to \"#1F2937\",\n        900 to \"#111827\"\n    )\n    private val ramps = mapOf(\n        \"mb-secondary\" to (\"#965DF5\" to \"brand\"),\n        \"mb-link\" to (\"#5FB9F2\" to \"standard\"),\n        \"mb-warning\" to (\"#F9A207\" to \"standard\"),\n        \"mb-correct\" to (\"#21C45D\" to \"standard\"),\n        \"mb-wrong\" to (\"#EF4343\" to \"standard\"),\n        \"mb-not-started\" to (\"#F9A207\" to \"standard\")\n    )\n    fun generate(name: String): Map<Int, String> {\n        if (name == \"mb-neutral\") return neutral.toMap()\n        val ramp = requireNotNull(ramps[name]) { \"Unknown ramp: $name\" }\n        return generate(ramp.first, ramp.second)\n    }\n    fun generate(hex: String, profile: String): Map<Int, String> {\n        require(Regex(\"^#[0-9A-Fa-f]{6}$\").matches(hex)) { \"Expected #RRGGBB\" }\n        val weights = requireNotNull(profiles[profile]) { \"Unknown profile: $profile\" }\n        val value = hex.substring(1).toInt(16)\n        val channels = listOf((value shr 16) and 255, (value shr 8) and 255, value and 255)\n        return steps.mapIndexed { i, step ->\n            val k = weights[i]\n            val target = if (step < 500) 255 else 0\n            val rgb = channels.map { channel ->\n                (target * (1_000_000 - k) + channel * k + 500_000) / 1_000_000\n            }\n            step to String.format(Locale.ROOT, \"#%02X%02X%02X\", rgb[0], rgb[1], rgb[2])\n        }.toMap()\n    }\n}\n"}};</script><script>const E=PaletteEngine,$=id=>document.getElementById(id),tokens=E.mobileTokens(DATA);let platform='ios';
+  ],
+  "policy": {
+    "fixedColors": "13 single tokens including mb-background",
+    "ramps": "6 generated color ramps with one shared curve; neutral is fixed",
+    "newBases": "same input HEX produces the same ramp for every token name"
+  }
+};const NATIVE={"ios":{"name":"APTSPalette.swift","source":"import Foundation\n\npublic enum APTSPalette {\n    public enum PaletteError: Error { case invalidHex, unknownToken }\n    public static let steps = [50,100,200,300,400,500,600,700,800,900]\n    private static let weights = [48698,77660,156851,277217,617325,1000000,815154,675198,498326,319742]\n    private static let neutral: [Int: String] = [\n        50: \"#F9FAFB\",\n        100: \"#F3F4F6\",\n        200: \"#E5E7EB\",\n        300: \"#D0D5DC\",\n        400: \"#9CA3B0\",\n        500: \"#6B7280\",\n        600: \"#4B5563\",\n        700: \"#384252\",\n        800: \"#1F2937\",\n        900: \"#111827\"\n    ]\n    private static let ramps: [String: String] = [\n        \"mb-secondary\": \"#965DF5\",\n        \"mb-link\": \"#5FB9F2\",\n        \"mb-warning\": \"#F9A207\",\n        \"mb-correct\": \"#21C45D\",\n        \"mb-wrong\": \"#EF4343\",\n        \"mb-not-started\": \"#F9A207\"\n    ]\n    public static func generate(name: String) throws -> [Int: String] {\n        if name == \"mb-neutral\" { return neutral }\n        guard let ramp = ramps[name] else { throw PaletteError.unknownToken }\n        return try generate(hex: ramp)\n    }\n    public static func generate(hex: String) throws -> [Int: String] {\n        guard hex.count == 7, hex.range(of: \"^#[0-9A-Fa-f]{6}$\", options: .regularExpression) != nil,\n              let value = UInt32(hex.dropFirst(), radix: 16) else { throw PaletteError.invalidHex }\n        let channels = [Int((value >> 16) & 255), Int((value >> 8) & 255), Int(value & 255)]\n        var result: [Int: String] = [:]\n        for (i, step) in steps.enumerated() {\n            let k = weights[i], target = step < 500 ? 255 : 0\n            let rgb = channels.map { channel in\n                (target * (1_000_000 - k) + channel * k + 500_000) / 1_000_000\n            }\n            result[step] = String(format: \"#%02X%02X%02X\", rgb[0], rgb[1], rgb[2])\n        }\n        return result\n    }\n}\n"},"android":{"name":"AptsPalette.kt","source":"import java.util.Locale\n\nobject AptsPalette {\n    private val steps = listOf(50,100,200,300,400,500,600,700,800,900)\n    private val weights = listOf(48698, 77660, 156851, 277217, 617325, 1000000, 815154, 675198, 498326, 319742)\n    private val neutral = mapOf(\n        50 to \"#F9FAFB\",\n        100 to \"#F3F4F6\",\n        200 to \"#E5E7EB\",\n        300 to \"#D0D5DC\",\n        400 to \"#9CA3B0\",\n        500 to \"#6B7280\",\n        600 to \"#4B5563\",\n        700 to \"#384252\",\n        800 to \"#1F2937\",\n        900 to \"#111827\"\n    )\n    private val ramps = mapOf(\n        \"mb-secondary\" to \"#965DF5\",\n        \"mb-link\" to \"#5FB9F2\",\n        \"mb-warning\" to \"#F9A207\",\n        \"mb-correct\" to \"#21C45D\",\n        \"mb-wrong\" to \"#EF4343\",\n        \"mb-not-started\" to \"#F9A207\"\n    )\n    fun generate(name: String): Map<Int, String> {\n        if (name == \"mb-neutral\") return neutral.toMap()\n        val ramp = requireNotNull(ramps[name]) { \"Unknown ramp: $name\" }\n        return generateFromHex(ramp)\n    }\n    fun generateFromHex(hex: String): Map<Int, String> {\n        require(Regex(\"^#[0-9A-Fa-f]{6}$\").matches(hex)) { \"Expected #RRGGBB\" }\n        val value = hex.substring(1).toInt(16)\n        val channels = listOf((value shr 16) and 255, (value shr 8) and 255, value and 255)\n        return steps.mapIndexed { i, step ->\n            val k = weights[i]\n            val target = if (step < 500) 255 else 0\n            val rgb = channels.map { channel ->\n                (target * (1_000_000 - k) + channel * k + 500_000) / 1_000_000\n            }\n            step to String.format(Locale.ROOT, \"#%02X%02X%02X\", rgb[0], rgb[1], rgb[2])\n        }.toMap()\n    }\n}\n"}};</script><script>/* Color format adapter for diagnostics. It does not change palette generation. */
+(function(root){
+'use strict';
+function normalizeColor(input){
+ const text=String(input).trim();let value,format;
+ if(!text)throw Error('Вставьте HEX или Android ColorInt.');
+ if(/^(?:#|0x)?[0-9a-f]{16}$/i.test(text))throw Error('Это похоже на 64-битный Color.value. В Compose сначала вызовите color.toArgb().');
+ const decimal=/^int:\s*([+-]?\d+)$/i.exec(text);
+ const plainDecimal=/^[+-]?\d+$/.test(text);
+ if(decimal||(plainDecimal&&(!/^\d{6}$|^\d{8}$/.test(text)))){
+  const n=Number(decimal?decimal[1]:text);
+  if(!Number.isInteger(n)||n< -2147483648||n>4294967295)throw Error('ColorInt должен помещаться в 32 бита.');
+  value=n>>>0;format='ColorInt';
+ }else{
+  if(/^\d{6}$|^\d{8}$/.test(text))throw Error('Для HEX добавьте #, для десятичного числа — int:.');
+  const match=/^(#|0x)?([0-9a-f]{6}|[0-9a-f]{8})$/i.exec(text);
+  if(!match)throw Error('Используйте #RRGGBB, #AARRGGBB, 0xAARRGGBB или отрицательный ColorInt.');
+  const h=match[2];value=parseInt(h.length===6?'FF'+h:h,16)>>>0;format=h.length===6?'RGB':'ARGB';
+ }
+ const alpha=value>>>24,r=(value>>>16)&255,g=(value>>>8)&255,b=value&255;
+ const argb='#'+value.toString(16).padStart(8,'0').toUpperCase();
+ return {rgb:'#'+argb.slice(3),argb,alpha,r,g,b,signedInt:value|0,unsignedInt:value,format};
+}
+function compareColor(input,expectedRgb){
+ const parsed=normalizeColor(input),expected=normalizeColor(expectedRgb);
+ const delta={r:parsed.r-expected.r,g:parsed.g-expected.g,b:parsed.b-expected.b,alpha:parsed.alpha-expected.alpha};
+ delta.rgb=Math.max(Math.abs(delta.r),Math.abs(delta.g),Math.abs(delta.b));
+ return {status:delta.rgb?'different':delta.alpha?'alpha-different':'match',parsed,expected,delta};
+}
+const api={normalizeColor,compareColor};if(typeof module!=='undefined'&&module.exports)module.exports=api;root.ColorInspector=api;
+})(typeof globalThis!=='undefined'?globalThis:this);
+</script><script>const E=PaletteEngine,$=id=>document.getElementById(id),tokens=E.mobileTokens(DATA);let platform='ios';
 const escapeText=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function chip(c,label){const effective=E.hex(E.rgb(c.hex).map(v=>v*c.alpha+255*(1-c.alpha)));return `<div class="checkers"><div class="chip" style="background:${E.cssColor(c)};color:${E.foreground(effective)}"><span>${label}</span><span class="hex">${c.hex}${c.alpha===1?'':' · '+Math.round(c.alpha*100)+'%'}</span></div></div>`;}
 function ramp(name,scale){return `<article class="row"><h3>${name}</h3><div class="ramp">${E.STEPS.map(step=>`<div class="cell">${chip(scale[step],step)}<div class="name">${name}-${step}</div></div>`).join('')}</div></article>`;}
@@ -402,23 +421,55 @@ $('ramps').innerHTML=Object.entries(tokens.scales).map(([name,scale])=>ramp(name
 $('fixed').innerHTML=DATA.mobile.filter(m=>m.generateRamp===false).map(m=>`<article class="single">${chip(tokens.originals[m.name],'')}<div class="name">${m.name}</div></article>`).join('');
 $('base').innerHTML=Object.entries(tokens.base).map(([name,c])=>`<article class="single">${chip(c,'')}<div class="name">${name}</div></article>`).join('');
 $('overlays').innerHTML=Object.entries(tokens.overlays).map(([name,scale])=>ramp(name,scale)).join('');
-function show(tab){for(const [id,button] of [['palette','paletteTab'],['comparison','comparisonTab'],['sources','sourceTab']]){$(id).hidden=tab!==id;$(button).setAttribute('aria-selected',tab===id);}}
-$('paletteTab').onclick=()=>show('palette');$('comparisonTab').onclick=()=>show('comparison');$('sourceTab').onclick=()=>show('sources');
+function show(tab){history.replaceState(null,'','#'+tab);for(const [id,button] of [['palette','paletteTab'],['check','checkTab'],['comparison','comparisonTab'],['sources','sourceTab']]){$(id).hidden=tab!==id;$(button).setAttribute('aria-selected',tab===id);$(button).tabIndex=tab===id?0:-1;}}
+
 function highlight(source){
  const token=/"(?:\\.|[^"\\])*"|\/\/[^\n]*|\b(?:import|public|private|static|enum|object|let|val|var|func|fun|throws|throw|try|guard|else|if|return|for|in|case|as|String|Int|UInt32|Map|List|Locale|Foundation|IntArray)\b|\b[0-9][0-9_]*(?:\.[0-9]+)?\b|\b[A-Za-z_][A-Za-z0-9_]*(?=\s*\()/g;
  let result='',cursor=0;for(const match of source.matchAll(token)){result+=escapeText(source.slice(cursor,match.index));const value=match[0];let kind='keyword';if(value[0]==='"')kind='string';else if(value.startsWith('//'))kind='comment';else if(/^[0-9]/.test(value))kind='number';else if(/^[A-Z]/.test(value))kind='type';else if(source.slice(match.index+value.length).match(/^\s*\(/))kind='call';result+='<span class="syntax-'+kind+'">'+escapeText(value)+'</span>';cursor=match.index+value.length;}return result+escapeText(source.slice(cursor));
 }
-function showCode(id){platform=id;$('iosTab').setAttribute('aria-selected',id==='ios');$('androidTab').setAttribute('aria-selected',id==='android');$('sourceCode').innerHTML=highlight(NATIVE[id].source);$('fileName').textContent=NATIVE[id].name;const example=id==='ios'?'let brandHex = "#965DF5"\nlet shades = try APTSPalette.generate(hex: brandHex, profile: "brand")':'val brandHex = "#965DF5"\nval shades = AptsPalette.generate(brandHex, "brand")';$('namedExample').textContent=id==='ios'?'try APTSPalette.generate(name: "mb-link")':'AptsPalette.generate("mb-link")';$('exampleCode').innerHTML=highlight(example);}
-$('iosTab').onclick=()=>showCode('ios');$('androidTab').onclick=()=>showCode('android');showCode('ios');
+function showCode(id){platform=id;$('iosTab').setAttribute('aria-selected',id==='ios');$('androidTab').setAttribute('aria-selected',id==='android');$('sourceCode').innerHTML=highlight(NATIVE[id].source);$('fileName').textContent=NATIVE[id].name;const example=id==='ios'?'let brandHex = "#965DF5"\nlet shades = try APTSPalette.generate(hex: brandHex)':'val brandHex = "#965DF5"\nval shades = AptsPalette.generateFromHex(brandHex)';$('namedExample').textContent=id==='ios'?'try APTSPalette.generate(name: "mb-link")':'AptsPalette.generate("mb-link")';$('exampleCode').innerHTML=highlight(example);}
+showCode('ios');
 function download(content,name,type='text/plain'){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
-$('downloadSource').onclick=()=>download(NATIVE[platform].source,NATIVE[platform].name);
-function handoffData(){const ramps=Object.fromEntries(DATA.mobile.filter(m=>m.generateRamp).map(m=>[m.name,{base:m.hex,profile:m.profile,colors:Object.fromEntries(Object.entries(tokens.scales[m.name]).map(([s,c])=>[s,c.hex]))}]));ramps['mb-neutral']={type:'fixedScale',colors:Object.fromEntries(Object.entries(tokens.scales['mb-neutral']).map(([s,c])=>[s,c.hex]))};const used=new Set(Object.values(ramps).map(r=>r.profile));return {algorithm:DATA.algorithm,profiles:Object.fromEntries(Object.entries(DATA.profiles).filter(([id])=>used.has(id))),ramps,fixed:Object.fromEntries(DATA.mobile.filter(m=>!m.generateRamp).map(m=>[m.name,tokens.originals[m.name]])),base:tokens.base,overlays:tokens.overlays};}
-const JSONC_HEADER='// APTS-MB-4. Mobile palette for iOS and Android.\n// ramps: generate with the named profile; original base is at 500.\n// fixed: retain as-is, including alpha. Do not generate numbered variants.\n// neutral: fixed source scale; no corrections in generated ramps.\n';
-$('downloadJsonc').onclick=()=>download(JSONC_HEADER+JSON.stringify(handoffData(),null,2)+'\n','apts-mobile.jsonc','application/json');
+function downloadSelectedSource(){download(NATIVE[platform].source,NATIVE[platform].name);}
+function handoffData(){const ramps=Object.fromEntries(DATA.mobile.filter(m=>m.generateRamp).map(m=>[m.name,{base:m.hex,colors:Object.fromEntries(Object.entries(tokens.scales[m.name]).map(([s,c])=>[s,c.hex]))}]));ramps['mb-neutral']={type:'fixedScale',colors:Object.fromEntries(Object.entries(tokens.scales['mb-neutral']).map(([s,c])=>[s,c.hex]))};return {algorithm:DATA.algorithm,ramps,fixed:Object.fromEntries(DATA.mobile.filter(m=>!m.generateRamp).map(m=>[m.name,tokens.originals[m.name]])),base:tokens.base,overlays:tokens.overlays};}
+const JSONC_HEADER='// APTS-MB-5. Mobile palette for iOS and Android.\n// ramps: one shared curve, original base at 500.\n// fixed: retain as-is, including alpha. Do not generate numbered variants.\n// neutral: fixed source scale; no corrections in generated ramps.\n';
+function downloadJsonc(){download(JSONC_HEADER+JSON.stringify(handoffData(),null,2)+'\n','apts-mobile.jsonc','application/json');}
 function renderComparison(){
- const rows=DATA.mobile.filter(m=>m.generateRamp).map(m=>({name:m.name,profile:m.profile,source:DATA.referenceScales[m.sourceFamily].colors,generated:tokens.scales[m.name]}));
- rows.push({name:'mb-neutral',profile:null,source:DATA.sourceMobileNeutral,generated:tokens.scales['mb-neutral']});
- $('comparisonRows').innerHTML=rows.map(row=>{let exact=0,max=0;const cells=E.STEPS.map(step=>{const a=row.source[step],b=row.generated[step].hex;const delta=Math.max(...E.rgb(a).map((v,i)=>Math.abs(v-E.rgb(b)[i])));if(delta===0)exact++;max=Math.max(max,delta);return `<div class="cell"><div class="compare-step">${step}</div><div class="comparison-chip">${chip({hex:a,alpha:1},'Figma')}</div><div class="comparison-chip">${chip({hex:b,alpha:1},row.profile?'Алгоритм':'Готовая шкала')}</div><div class="difference ${delta===0?'match':''}">${delta===0?'Совпадает':'ΔRGB '+delta}</div></div>`;}).join('');return `<article class="row"><div class="row-title"><h3>${row.name}</h3><small>${exact}/10 точно · макс. ΔRGB ${max}</small></div><p>${row.profile?DATA.profiles[row.profile].name+' · профиль '+row.profile:'Сохранённый набор Figma'}</p><div class="ramp">${cells}</div></article>`;}).join('');
+ const rows=DATA.mobile.filter(m=>m.generateRamp).map(m=>({name:m.name,source:DATA.referenceScales[m.sourceFamily].colors,generated:tokens.scales[m.name]}));
+ rows.push({name:'mb-neutral',source:DATA.sourceMobileNeutral,generated:tokens.scales['mb-neutral']});
+ $('comparisonRows').innerHTML=rows.map(row=>{let exact=0,max=0;const cells=E.STEPS.map(step=>{const a=row.source[step],b=row.generated[step].hex;const delta=Math.max(...E.rgb(a).map((v,i)=>Math.abs(v-E.rgb(b)[i])));if(delta===0)exact++;max=Math.max(max,delta);return `<div class="cell"><div class="compare-step">${step}</div><div class="comparison-chip">${chip({hex:a,alpha:1},'Figma')}</div><div class="comparison-chip">${chip({hex:b,alpha:1},row.name==='mb-neutral'?'Готовая шкала':'Алгоритм')}</div><div class="difference ${delta===0?'match':''}">${delta===0?'Совпадает':'ΔRGB '+delta}</div></div>`;}).join('');return `<article class="row"><div class="row-title"><h3>${row.name}</h3><small>${exact}/10 точно · макс. ΔRGB ${max}</small></div><p>${row.name==='mb-neutral'?'Сохранённый набор Figma':'Единая формула для всех цветных шкал'}</p><div class="ramp">${cells}</div></article>`;}).join('');
 }
 renderComparison();
+</script><script>const C=ColorInspector;
+let greenBase='#21C45D',greenExpected=E.generateScale(greenBase);
+const greenReference=DATA.referenceScales.success.colors;
+const developerValues=Object.fromEntries(E.STEPS.map(s=>[s,'']));
+function greenTable(){
+ $('checkRows').innerHTML=E.STEPS.map(step=>{const expected=C.normalizeColor(greenExpected[step]);const ref=greenReference[step];return `<tr class="${step===500?'base-step':''}"><th scope="row">${step}${step===500?'<br>база':''}</th><td><span class="table-color"><i class="table-dot" style="background:${ref}"></i><code>${ref}</code></span></td><td><span class="table-color"><i class="table-dot" style="background:${expected.rgb}"></i><code>${expected.rgb}</code></span></td><td><code>${expected.argb}</code><span class="color-int">Int: ${expected.signedInt}</span></td><td><input id="actual-${step}" aria-label="Ваш цвет ${step}" aria-describedby="result-${step}" autocomplete="off" spellcheck="false" placeholder="${expected.argb}" value="${escapeText(developerValues[step])}"></td><td><div id="result-${step}" class="result-text empty" role="status" aria-live="polite"></div></td></tr>`;}).join('');
+ E.STEPS.forEach(step=>{const input=$('actual-'+step);input.addEventListener('input',()=>{developerValues[step]=input.value;compareGreenStep(step);});compareGreenStep(step);});
+}
+function compareGreenStep(step){
+ const input=$('actual-'+step),result=$('result-'+step);const value=input.value.trim();input.setAttribute('aria-invalid','false');
+ if(!value){result.className='result-text empty';result.textContent='Вставьте значение для проверки';return;}
+ try{const comparison=C.compareColor(value,greenExpected[step]),p=comparison.parsed;result.className='result-text '+(comparison.status==='match'?'pass':comparison.status==='alpha-different'?'partial':'fail');
+ let text;if(comparison.status==='match')text='Совпадает: RGB и прозрачность одинаковые';else if(comparison.status==='alpha-different')text=`RGB совпадает; прозрачность ${p.alpha}/255 вместо 255/255`;else{text=step===500?'Другая база 500. Сверьте исходный HEX.':`Не совпадает. ΔR ${comparison.delta.r}, ΔG ${comparison.delta.g}, ΔB ${comparison.delta.b}.`;if(p.alpha!==255)text+=` Прозрачность: ${p.alpha}/255.`;}
+ result.textContent=text;const normalized=document.createElement('div');normalized.className='result-color';const dot=document.createElement('i');dot.className='table-dot';dot.style.background=p.rgb;normalized.append(dot,document.createTextNode(p.argb));result.append(normalized);
+ }catch(error){input.setAttribute('aria-invalid','true');result.className='result-text fail';result.textContent=error.message;}
+}
+function updateGreenCheck(){
+ try{const base=C.normalizeColor($('checkBase').value);if(base.alpha!==255)throw Error('Для базы нужен непрозрачный цвет: AA = FF.');greenBase=base.rgb;greenExpected=E.generateScale(greenBase);$('checkBase').setAttribute('aria-invalid','false');$('checkBaseError').textContent='';$('checkResults').hidden=false;$('downloadCheck').disabled=false;
+ const value=C.normalizeColor(greenBase);$('greenFormatExample').innerHTML=`<i class="format-preview" style="background:${greenBase}"></i><span>${value.rgb}</span><span>=</span><span>${value.argb}</span><span>= Int ${value.signedInt}</span>`;
+ const same=greenBase==='#21C45D';const swift=same?'let shades = try APTSPalette.generate(name: "mb-correct")':`let shades = try APTSPalette.generate(hex: "${greenBase}")`;
+ const kotlin=same?'val shades = AptsPalette.generate("mb-correct")':`val shades = AptsPalette.generateFromHex("${greenBase}")`;
+ $('greenSwift').innerHTML=highlight(swift+'\nlet hexRgb = shades[500]');$('greenKotlin').innerHTML=highlight('import android.graphics.Color\nimport java.util.Locale\n\n'+kotlin+'\nval argb = Color.parseColor(shades.getValue(500))\nval hexArgb = String.format(Locale.ROOT, "#%08X", argb)');$('differentBaseNote').hidden=same;greenTable();
+ }catch(error){$('checkBase').setAttribute('aria-invalid','true');$('checkBaseError').textContent=error.message;$('checkResults').hidden=true;$('downloadCheck').disabled=true;}
+}
+$('checkBase').addEventListener('input',updateGreenCheck);
+function resetGreenCheck(){$('checkBase').value='#21C45D';for(const step of E.STEPS)developerValues[step]='';updateGreenCheck();$('checkBase').focus();}
+function downloadGreenCheck(){const rows=Object.fromEntries(E.STEPS.map(step=>{const c=C.normalizeColor(greenExpected[step]);return [step,{rgb:c.rgb,argb:c.argb,colorInt:c.signedInt,figma:greenReference[step]}];}));download(JSON.stringify({token:'mb-correct',base:greenBase,algorithm:DATA.algorithm.version,androidHexOrder:'AARRGGBB',colors:rows},null,2),'mb-correct-control.json','application/json');}
+
+updateGreenCheck();
+function keyboardTabs(container,select){const buttons=[...container.querySelectorAll('[role=tab]')];container.addEventListener('keydown',event=>{if(event.altKey||event.ctrlKey||event.metaKey)return;const index=buttons.indexOf(document.activeElement);if(index<0)return;let next;if(event.key==='ArrowRight')next=(index+1)%buttons.length;if(event.key==='ArrowLeft')next=(index+buttons.length-1)%buttons.length;if(event.key==='Home')next=0;if(event.key==='End')next=buttons.length-1;if(next!==undefined){event.preventDefault();select(buttons[next]);buttons[next].focus();}});}
+keyboardTabs(document.querySelector('.tabs'),button=>button.click());keyboardTabs(document.querySelector('.code-tabs'),button=>button.click());
+const initialTab=location.hash.slice(1);if(['palette','check','comparison','sources'].includes(initialTab))show(initialTab);
 </script></body></html>

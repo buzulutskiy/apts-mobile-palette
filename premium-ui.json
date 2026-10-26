@@ -1,0 +1,10 @@
+{
+  "profile": "static-tool",
+  "sourceRoots": ["src"],
+  "locale": "ru-RU",
+  "canonicalMap": "UX-CONTRACT.md",
+  "requiredCapabilities": ["Form"],
+  "ownership": {"Form": "native text controls in src/green-check.html"},
+  "requiredCommands": ["unit", "build"],
+  "commands": {"unit": "npm test", "build": "npm run build"}
+}

@@ -1,0 +1,23 @@
+<section id="check" role="tabpanel" aria-labelledby="checkTab" hidden>
+<h2>Контрольная проверка: mb-correct</h2>
+<p>На созвоне сравнивайте числовые значения, а не скриншоты. Для зелёного, брендового и любого другого цвета теперь используется одна и та же формула.</p>
+<div class="spec check-start"><div><strong>1. База 500</strong><label for="checkBase">Исходный цвет</label><input id="checkBase" type="text" value="#21C45D" spellcheck="false" autocomplete="off" aria-describedby="checkBaseHelp checkBaseError"><small id="checkBaseHelp">#RRGGBB или Android #FFRRGGBB</small></div><div><strong>2. Единая формула</strong><code class="profile-value">APTS-MB-5</code><small>Одна таблица коэффициентов. Выбора профиля нет.</small></div><div><strong>3. Результат</strong><span>10 оттенков 50–900</span><small>Код ниже, таблица и JSONC используют один генератор.</small></div></div>
+<div id="checkBaseError" class="field-error" role="alert"></div>
+<div class="check-actions"><button onclick="resetGreenCheck()" id="resetCheck">Вернуть исходную базу</button><button onclick="downloadGreenCheck()" id="downloadCheck">Скачать контрольные HEX ↓</button></div>
+<div id="checkResults">
+<h3 class="check-heading">Один цвет — разные записи</h3>
+<div id="greenFormatExample" class="format-example"></div>
+<p class="check-help">В Android <code>#AARRGGBB</code> первые две цифры — прозрачность: <code>FF</code> означает 100%. Они не меняют RGB. Отрицательный ColorInt — другая запись тех же 32 бит.</p>
+<div class="check-code-grid"><div><h3>iOS · Swift</h3><pre class="example-code"><code id="greenSwift"></code></pre></div><div><h3>Android · Kotlin</h3><pre class="example-code"><code id="greenKotlin"></code></pre></div></div>
+<p class="check-help">Наш Kotlin-генератор возвращает <code>#RRGGBB</code>. Вызов <code>Color.parseColor(hex)</code> преобразует его в Android ColorInt, а <code>String.format(Locale.ROOT, "#%08X", colorInt)</code> выводит <code>#AARRGGBB</code>.</p>
+<details class="check-details"><summary>Если в Compose выводится больше 8 HEX-цифр</summary><p><code>Color.value</code> — упакованное 64-битное значение. Для сравнения получите <code>color.toArgb()</code>: это 32-битный sRGB ARGB. Затем выведите <code>String.format(Locale.ROOT, "#%08X", color.toArgb())</code>.</p><pre class="example-code"><code>import androidx.compose.ui.graphics.toArgb
+val argb = composeColor.toArgb()
+val hex = String.format(Locale.ROOT, "#%08X", argb)</code></pre></details>
+<h3 class="check-heading">Вставьте полученные у разработки значения</h3>
+<p class="check-help">Поддерживаются RGB (<code>#21C45D</code>), Android ARGB (<code>#FF21C45D</code>, <code>0xFF21C45D</code>) и отрицательный Int. Положительное десятичное число укажите как <code>int:…</code>. Восемь HEX-цифр здесь всегда читаются как <strong>AARRGGBB</strong>, не CSS RRGGBBAA.</p>
+<p id="differentBaseNote" class="note" hidden>Сейчас задана другая база. Результат генерации изменён; столбец Figma по-прежнему показывает исходный макет.</p>
+<div class="check-table-scroll" tabindex="0" role="region" aria-label="Сравнение HEX по 10 ступеням"><table class="check-table"><caption>mb-correct · Figma, генератор и ваши значения</caption><thead><tr><th scope="col">Ступень</th><th scope="col">Figma · RGB</th><th scope="col">Генерация · RGB</th><th scope="col">Android · ARGB / Int</th><th scope="col">Ваш HEX / ColorInt</th><th scope="col">Сравнение с генерацией</th></tr></thead><tbody id="checkRows"></tbody></table></div>
+<p class="check-help">У единой формулы возможны отличия от Figma. Поле справа проверяет точное совпадение с генератором, включая прозрачность.</p>
+<details class="check-details"><summary>Что проверять по скриншоту разработчика</summary><ol><li>Сначала сравнить HEX на 500: у всех способов должна быть одна база.</li><li>В старой версии были brand и standard: они давали разные растяжки одной базы. В APTS-MB-5 оставлена одна кривая — бывшая standard.</li><li>Для второй полосы нужна её формула: изображение показывает другую растяжку, но не раскрывает использованные коэффициенты.</li><li>Сравнивать HEX и ARGB, а не пиксели скриншотов: цветовой профиль изображения и экрана может влиять на видимый цвет.</li></ol></details>
+<p class="check-help">Форматы: <a href="https://developer.android.com/reference/android/graphics/Color#parseColor(java.lang.String)" target="_blank" rel="noreferrer">Android Color</a> · <a href="https://github.com/androidx/androidx/blob/androidx-main/compose/ui/ui-graphics/src/commonMain/kotlin/androidx/compose/ui/graphics/Color.kt" target="_blank" rel="noreferrer">Compose Color / toArgb</a>.</p>
+</div></section>

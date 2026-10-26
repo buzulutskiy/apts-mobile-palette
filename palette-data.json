@@ -1,6 +1,6 @@
 {
   "algorithm": {
-    "version": "APTS-MB-4",
+    "version": "APTS-MB-5",
     "space": "encoded-sRGB",
     "steps": [
       50,
@@ -15,42 +15,21 @@
       900
     ],
     "denominator": 1000000,
+    "weights": [
+      48698,
+      77660,
+      156851,
+      277217,
+      617325,
+      1000000,
+      815154,
+      675198,
+      498326,
+      319742
+    ],
     "formula": "floor((T*(1000000-k)+B*k+500000)/1000000)",
-    "profiles": "brand and standard; no per-color corrections",
     "neutral": "fixed source scale; no generation",
-    "sourceAccuracy": "brand: exact for the reference base; standard: max RGB delta 3 on the approved source shades"
-  },
-  "profiles": {
-    "brand": {
-      "name": "Брендовый",
-      "weights": [
-        48730,
-        97728,
-        246996,
-        400867,
-        696861,
-        1000000,
-        901650,
-        751749,
-        600204,
-        491127
-      ]
-    },
-    "standard": {
-      "name": "Стандартный",
-      "weights": [
-        48698,
-        77660,
-        156851,
-        277217,
-        617325,
-        1000000,
-        815154,
-        675198,
-        498326,
-        319742
-      ]
-    }
+    "input": "one opaque #RRGGBB; the same weights apply to all color names"
   },
   "neutralBase": "#6B7280",
   "sourceMobileNeutral": {
@@ -193,7 +172,6 @@
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "brand",
       "sourceFamily": "primary"
     },
     {
@@ -201,7 +179,6 @@
       "hex": "#F9FAFB",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "neutral"
     },
     {
@@ -209,7 +186,6 @@
       "hex": "#E5D7FD",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -217,7 +193,6 @@
       "hex": "#5FB9F2",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "tertiary"
     },
     {
@@ -225,7 +200,6 @@
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "secondary"
     },
     {
@@ -233,7 +207,6 @@
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "secondary"
     },
     {
@@ -241,7 +214,6 @@
       "hex": "#21C45D",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "success"
     },
     {
@@ -249,7 +221,6 @@
       "hex": "#EF4343",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "error"
     },
     {
@@ -257,7 +228,6 @@
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -265,7 +235,6 @@
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": true,
-      "profile": "standard",
       "sourceFamily": "secondary"
     },
     {
@@ -273,7 +242,6 @@
       "hex": "#000000",
       "alpha": 0.2,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "overlay-black"
     },
     {
@@ -281,7 +249,6 @@
       "hex": "#FFFFFF",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "white"
     },
     {
@@ -289,7 +256,6 @@
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -297,7 +263,6 @@
       "hex": "#F9A207",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "secondary"
     },
     {
@@ -305,7 +270,6 @@
       "hex": "#D0D5DC",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "neutral"
     },
     {
@@ -313,7 +277,6 @@
       "hex": "#FFFFFF",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "white"
     },
     {
@@ -321,7 +284,6 @@
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -329,7 +291,6 @@
       "hex": "#965DF5",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "primary"
     },
     {
@@ -337,8 +298,12 @@
       "hex": "#111827",
       "alpha": 1,
       "generateRamp": false,
-      "profile": null,
       "sourceFamily": "neutral"
     }
-  ]
+  ],
+  "policy": {
+    "fixedColors": "13 single tokens including mb-background",
+    "ramps": "6 generated color ramps with one shared curve; neutral is fixed",
+    "newBases": "same input HEX produces the same ramp for every token name"
+  }
 }
