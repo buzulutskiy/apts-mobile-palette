@@ -6,7 +6,7 @@ $('ramps').innerHTML=Object.entries(tokens.scales).map(([name,scale])=>ramp(name
 $('fixed').innerHTML=DATA.mobile.filter(m=>m.generateRamp===false).map(m=>`<article class="single">${chip(tokens.originals[m.name],'')}<div class="name">${m.name}</div></article>`).join('');
 $('base').innerHTML=Object.entries(tokens.base).map(([name,c])=>`<article class="single">${chip(c,'')}<div class="name">${name}</div></article>`).join('');
 $('overlays').innerHTML=Object.entries(tokens.overlays).map(([name,scale])=>ramp(name,scale)).join('');
-function show(tab){history.replaceState(null,'','#'+tab);for(const [id,button] of [['palette','paletteTab'],['check','checkTab'],['comparison','comparisonTab'],['sources','sourceTab']]){$(id).hidden=tab!==id;$(button).setAttribute('aria-selected',tab===id);$(button).tabIndex=tab===id?0:-1;}}
+function show(tab){history.replaceState(null,'','#'+tab);for(const [id,button] of [['palette','paletteTab'],['how','howTab'],['check','checkTab'],['comparison','comparisonTab'],['sources','sourceTab']]){$(id).hidden=tab!==id;$(button).setAttribute('aria-selected',tab===id);$(button).tabIndex=tab===id?0:-1;}}
 
 function highlight(source){
  const token=/"(?:\\.|[^"\\])*"|\/\/[^\n]*|\b(?:import|public|private|static|enum|object|let|val|var|func|fun|throws|throw|try|guard|else|if|return|for|in|case|as|String|Int|UInt32|Map|List|Locale|Foundation|IntArray)\b|\b[0-9][0-9_]*(?:\.[0-9]+)?\b|\b[A-Za-z_][A-Za-z0-9_]*(?=\s*\()/g;
@@ -25,3 +25,6 @@ function renderComparison(){
  $('comparisonRows').innerHTML=rows.map(row=>{let exact=0,max=0;const cells=E.STEPS.map(step=>{const a=row.source[step],b=row.generated[step].hex;const delta=Math.max(...E.rgb(a).map((v,i)=>Math.abs(v-E.rgb(b)[i])));if(delta===0)exact++;max=Math.max(max,delta);return `<div class="cell"><div class="compare-step">${step}</div><div class="comparison-chip">${chip({hex:a,alpha:1},'Figma')}</div><div class="comparison-chip">${chip({hex:b,alpha:1},row.name==='mb-neutral'?'Готовая шкала':'Алгоритм')}</div><div class="difference ${delta===0?'match':''}">${delta===0?'Совпадает':'ΔRGB '+delta}</div></div>`;}).join('');return `<article class="row"><div class="row-title"><h3>${row.name}</h3><small>${exact}/10 точно · макс. ΔRGB ${max}</small></div><p>${row.name==='mb-neutral'?'Сохранённый набор Figma':'Единая формула для всех цветных шкал'}</p><div class="ramp">${cells}</div></article>`;}).join('');
 }
 renderComparison();
+
+const howGreen=E.generateScale('#21C45D');
+$('howRecipe').innerHTML=E.STEPS.map((step,i)=>{const percent=E.WEIGHTS[i]/10000;const target=step<500?'белого':step>500?'чёрного':'—';return `<tr><th scope="row">${step}${step===500?' · база':''}</th><td>${percent.toFixed(4)}%</td><td>${step===500?'—':(100-percent).toFixed(4)+'% '+target}</td><td><span class="how-swatch" style="background:${howGreen[step]}"></span><code>${howGreen[step]}</code></td></tr>`;}).join('');

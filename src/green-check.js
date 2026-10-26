@@ -29,4 +29,4 @@ function downloadGreenCheck(){const rows=Object.fromEntries(E.STEPS.map(step=>{c
 updateGreenCheck();
 function keyboardTabs(container,select){const buttons=[...container.querySelectorAll('[role=tab]')];container.addEventListener('keydown',event=>{if(event.altKey||event.ctrlKey||event.metaKey)return;const index=buttons.indexOf(document.activeElement);if(index<0)return;let next;if(event.key==='ArrowRight')next=(index+1)%buttons.length;if(event.key==='ArrowLeft')next=(index+buttons.length-1)%buttons.length;if(event.key==='Home')next=0;if(event.key==='End')next=buttons.length-1;if(next!==undefined){event.preventDefault();select(buttons[next]);buttons[next].focus();}});}
 keyboardTabs(document.querySelector('.tabs'),button=>button.click());keyboardTabs(document.querySelector('.code-tabs'),button=>button.click());
-const initialTab=location.hash.slice(1);if(['palette','check','comparison','sources'].includes(initialTab))show(initialTab);
+const initialTab=location.hash.slice(1);if(['palette','how','check','comparison','sources'].includes(initialTab))show(initialTab);

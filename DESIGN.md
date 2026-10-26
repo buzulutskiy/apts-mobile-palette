@@ -20,7 +20,7 @@ Code blocks retain the existing offline syntax highlighter.
 
 ## Layout and behavior
 
-Four tabs: palette, HEX diagnostics, Figma comparison, source code. Diagnostic
+Five tabs: palette, plain-language algorithm explanation, HEX diagnostics, Figma comparison, source code. Diagnostic
 code examples and editable fields reflow to one column below 800px. The dense
 six-column comparison table scrolls within an explicitly labeled region on phones.
 All calculations run locally; there are no remote submits, accounts, or storage.
